@@ -41,16 +41,18 @@
 <div class="event-list" id="event-list"></div>
 
 <!-- 登録フォームへの誘導リンク -->
-<div class="register-link" style="margin: 1em 0; text-align: center;">
+<div class="register-link" style="margin: 1.5em 0; text-align: center;">
   <a href="https://forms.gle/wPuDp7AbU16ymNX56" class="btn-register" style="
     display: inline-block;
-    padding: 0.6em 1.2em;
+    padding: 1.2em 2.4em;       /* 余白を倍に */
     background-color: #0057b7;
     color: white;
     text-decoration: none;
-    border-radius: 4px;
-    font-weight: 600;
+    border-radius: 8px;         /* 角丸を大きめに */
+    font-weight: 700;
+    font-size: 1.5rem;          /* フォントサイズ大きく */
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 影で浮き立たせる */
   " onmouseover="this.style.backgroundColor='#003f7d'" onmouseout="this.style.backgroundColor='#0057b7'">
     Register for Event
   </a>
