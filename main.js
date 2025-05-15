@@ -1,4 +1,4 @@
-// 最終更新：2025/05/15/14:55
+// 最終更新：2025/05/15/14:59
 /**
  * 日時文字列を「yyyy/mm/dd(aaa) hh:mm」形式にフォーマット
  * @param {string} dateString ISO形式の日時文字列
@@ -137,23 +137,24 @@ function generateDetails(event) {
   const remain = event['date_remain'] ?? Infinity;
 
   return [
-    { label: 'Event Duration<br>', value: durationWithTz, isHTML: false },
-    {
-      label: 'Organized by<br>',
-      value: event['organizer_name']
-        ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
-        : '',
-      isHTML: true,
-    },
-    {
-      label: 'Hashtag<br>',
-      value: event['hashtag']
-        ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
-        : '',
-      isHTML: true,
-    },
-    { label: 'Event Type<br>', value: event['event_type'] || '', isHTML: false },
-    { label: 'Songs<br>', value: event['songs'] || '', isHTML: false },
-    { label: 'Status<br>', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
-  ];
+  { label: 'Event Duration<br>', value: durationWithTz, isHTML: true },
+  {
+    label: 'Organized by<br>',
+    value: event['organizer_name']
+      ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
+      : '',
+    isHTML: true,
+  },
+  {
+    label: 'Hashtag<br>',
+    value: event['hashtag']
+      ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
+      : '',
+    isHTML: true,
+  },
+  { label: 'Event Type<br>', value: event['event_type'] || '', isHTML: true },
+  { label: 'Songs<br>', value: event['songs'] || '', isHTML: true },
+  { label: 'Status<br>', value: event['status'] ? 'Active' : 'Inactive', isHTML: true },
+];
+
 }
