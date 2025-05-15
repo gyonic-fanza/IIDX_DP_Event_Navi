@@ -80,33 +80,21 @@
     // GASのURLをセットしてください
     const apiUrl = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
 
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('event-list');
-        container.innerHTML = '';
+fetch(apiUrl)
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(event => {
+      const title = event['Event Name'] || 'No Title';
 
-        data.forEach(event => {
-          const div = document.createElement('div');
-          div.className = 'event-item';
-
-          // イベント名
-          const title = document.createElement('div');
-          title.className = 'event-title';
-          title.textContent = event.EventName || 'No Title';
-          div.appendChild(title);
-
-          // 詳細情報
-          const details = [
-            { label: 'Duration:', value: event.EventDuration || '' },
-            { label: 'Organizer:', value: event.Organizer || '' },
-            { label: 'Hashtag:', value: event.Hashtag || '' },
-            { label: 'Submission:', value: event.Submission || '' },
-            { label: 'Category:', value: event.Category || '' },
-            { label: 'Status:', value: event.Status || '' },
-          ];
-
-          details.forEach(({ label, value }) => {
+      const details = [
+        { label: 'Event Duration:', value: event['Event Duration'] || '' },
+        { label: 'Organizer:', value: event['Organizer'] || '' },
+        { label: 'Hashtag:', value: event['Hashtag'] || '' },
+        { label: 'Submission:', value: event['Submission'] || '' },
+        { label: 'Category:', value: event['Category'] || '' },
+        { label: 'Status:', value: event['Status'] || '' },
+      ];
+      details.forEach(({ label, value }) => {
             if (value) {
               const p = document.createElement('p');
               p.className = 'event-detail';
