@@ -104,7 +104,12 @@ fetch(apiUrl)
 
         // 画像読み込みエラー時は非表示にする
         img.onerror = () => {
-          img.style.display = 'none';
+          img.src = './no_image.png';
+          img.alt = event['title'] || 'Event Banner';
+          img.style.width = '100%';
+          img.style.borderRadius = '6px 6px 0 0'; // 上側の角を丸く
+          img.style.display = 'block';
+          img.style.marginBottom = '0.5rem';
         };
 
         // aタグ内にimgを入れてdivに追加
