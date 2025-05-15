@@ -95,11 +95,11 @@
         div.className = 'event-item';
 
         // イベント名を取得、なければ'No Title'を代入
-        const title = event['Event Name'] || 'No Title';
+        const title = event['title'] || 'No Title';
 
         // イベントタイトル用のh2要素を作成しクラス・テキストを設定
         const h2 = document.createElement('h2');
-        h2.className = 'title';
+        h2.className = 'event_title';
         h2.textContent = title;
         div.appendChild(h2); // イベントdivにタイトルを追加
 
