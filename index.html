@@ -2,11 +2,25 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+<meta name="description" content="beatmania IIDXのDPイベント情報をまとめた非公式ナビゲーションサイト" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <title>beatmania IIDX DP Event Navigator</title>
   <style>
     /* ページ全体のフォントや背景色 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e1e1e;
+    color: #eee;
+  }
+  .event-item {
+    background-color: #2c2c2c;
+    border-left-color: #3399ff;
+  }
+  a {
+    color: #66ccff;
+  }
+}
     body {
 font-family: "Noto Sans JP", sans-serif;
       background-color: #f9f9f9;
@@ -220,35 +234,36 @@ img.onerror = () => {
    * @param {object} event APIから取得したイベントオブジェクト
    * @returns {Array<{label:string, value:string, isHTML:boolean}>}
    */
-  function generateDetails(event) {
-    const timezone = event['timezone'] || '';
-    const start = formatDateTime(event['start_date']);
-    const end = formatDateTime(event['end_date']);
-    const duration = [start, end].filter(Boolean).join(' ～ ');
-    const durationWithTz = timezone ? `${duration} (${timezone})` : duration;
-    const remain = event['date_remain'] ?? Infinity;
+function generateDetails(event) {
+  const timezone = event['timezone'] || '';
+  const start = formatDateTime(event['start_date']);
+  const end = formatDateTime(event['end_date']);
+  const duration = [start, end].filter(Boolean).join(' ～ ');
+  const durationWithTz = timezone ? `${duration} (${timezone})` : duration;
+  const remain = event['date_remain'] ?? Infinity;
 
-    return [
-      { label: 'Event Duration<br>', value: durationWithTz, isHTML: false },
-      { 
-        label: 'Organized by<br>', 
-        value: event['organizer_name']
-          ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
-          : '',
-        isHTML: true
-      },
-      { 
-        label: 'Hashtag<br>', 
-        value: event['hashtag']
-          ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
-          : '',
-        isHTML: true
-      },
-      { label: 'Event Type<br>', value: event['event_type'] || '', isHTML: false },
-      { label: 'Songs<br>', value: event['songs'] || '', isHTML: false },
-      { label: 'Status<br>', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
-    ];
-  }
+  return [
+    { label: 'Event Duration<br>', value: durationWithTz, isHTML: false },
+    { 
+      label: 'Organized by<br>', 
+      value: event['organizer_name']
+        ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
+        : '',
+      isHTML: true
+    },
+    { 
+      label: 'Hashtag<br>', 
+      value: event['hashtag']
+        ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
+        : '',
+      isHTML: true
+    },
+    { label: 'Event Type<br>', value: event['event_type'] || '', isHTML: false },
+    { label: 'Songs<br>', value: event['songs'] || '', isHTML: false },
+    { label: 'Status<br>', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
+  ];
+}
+
 </script>
 <footer>
   <p>⚠ 注意事項
