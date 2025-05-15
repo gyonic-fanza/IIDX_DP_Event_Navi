@@ -30,7 +30,7 @@
   <h1>beatmania IIDX DP Event Navigator</h1>
 
   <!-- 開催中のイベント一覧を示す見出し（英語表記） -->
-  <h2 class="section-title">Ongoing Events List</h2>
+  <h2 class="section-title">Current Events</h2>
 
   <!-- イベント一覧を表示するためのコンテナ。JavaScriptで動的に内容を挿入 -->
   <div class="event-list" id="event-list"></div>
@@ -38,6 +38,23 @@
   <!-- 外部JavaScriptファイルを読み込み。ページの動的処理やイベントデータの表示を担当 -->
   <script src="main.js"></script>
 
+<div class="event-list" id="event-list"></div>
+
+<!-- 登録フォームへの誘導リンク -->
+<div class="register-link" style="margin: 1em 0; text-align: center;">
+  <a href="https://forms.gle/wPuDp7AbU16ymNX56" class="btn-register" style="
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    background-color: #0057b7;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#003f7d'" onmouseout="this.style.backgroundColor='#0057b7'">
+    Register for Event
+  </a>
+</div>
   <!-- ページ下部のフッター -->
   <footer>
     <p>
