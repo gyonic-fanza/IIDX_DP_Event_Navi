@@ -89,6 +89,8 @@
 </head>
 <body>
   <h1>IIDX DP Event Navigator</h1>
+  <button id="toggle-sort-btn">Sort: Ascending ↓</button>
+  <button id="toggle-all-btn">すべて開く</button>
   <div class="event-list" id="event-list"></div>
 
 <script>
@@ -221,6 +223,7 @@ data.forEach(event => {
         isHTML: true
       },
       { label: 'Category:', value: event['event_type'] || '', isHTML: false },
+      { label: 'Songs:', value: event['songs'] || '', isHTML: false },
       { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
     ];
   }
