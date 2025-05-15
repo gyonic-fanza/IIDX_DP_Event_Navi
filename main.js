@@ -1,4 +1,4 @@
-// 最終更新：2025/05/15/15:01
+// 最終更新：2025/05/15/15:05
 /**
  * 日時文字列を「yyyy/mm/dd(aaa) hh:mm」形式にフォーマット
  * @param {string} dateString ISO形式の日時文字列
@@ -45,14 +45,22 @@ fetch(apiUrl)
 
       // --- ここで残り日数の表示 ---
       const remain = event['date_remain'];
-      if (typeof remain === 'number' && remain !== Infinity) {
-        const remainText = document.createElement('p');
-        remainText.className = 'event-remaining';
-        remainText.textContent = remain > 0
-          ? `Days remaining: ${remain} day${remain === 1 ? '' : 's'}`
-          : (remain === 0 ? 'Ends today!' : 'Event ended');
-        div.appendChild(remainText);
-      }
+if (typeof remain === 'number' && remain !== Infinity) {
+  const remainDays = Math.floor(remain); // 小数点以下切り捨て
+  const remainText = document.createElement('p');
+  remainText.className = 'event-remaining';
+
+  if (remainDays > 0) {
+    remainText.textContent = `Days remaining: ${remainDays} day${remainDays === 1 ? '' : 's'}`;
+  } else if (remainDays === 0) {
+    remainText.textContent = 'Ends today!';
+  } else {
+    remainText.textContent = 'Event ended';
+    remainText.classList.add('ended');
+  }
+
+  div.appendChild(remainText);
+}
       // banner_urlがある場合はリンク付き画像を作成
       if (event['banner_url']) {
         const linkBanner = document.createElement('a');
@@ -118,13 +126,6 @@ fetch(apiUrl)
 
       container.appendChild(div);
     });
-
-    // 最終更新日時を表示（ここではfetch完了時点の現在時刻）
-    const lastUpdatedElem = document.getElementById('last-updated');
-    if (lastUpdatedElem) {
-      const now = new Date();
-      lastUpdatedElem.textContent = `最終更新日時: ${formatDateTime(now.toISOString())}`;
-    }
   })
   .catch((err) => {
     console.error('Failed to load event data:', err);
