@@ -2,68 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IIDX DP Event Navigator</title>
   <style>
-    body { font-family: sans-serif; padding: 1rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
-    th { background-color: #f2f2f2; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 1rem 1rem 4rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #444;
+      padding-bottom: 0.3rem;
+    }
+
+    .event-list {
+      margin-top: 1.5rem;
+    }
+
+    .event-item {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+      padding: 1rem 1rem 1rem 1rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid #0078d7; /* アクセントカラー */
+    }
+
+    .event-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      color: #0078d7;
+    }
+
+    .event-detail {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin: 0.2rem 0;
+      color: #555;
+    }
+
+    .event-label {
+      font-weight: 600;
+      color: #444;
+      margin-right: 0.3rem;
+    }
+
+    a {
+      color: #0078d7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr { display: block; }
-      th { position: absolute; top: -9999px; left: -9999px; }
-      td { position: relative; padding-left: 50%; }
-      td::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 45%;
-        white-space: nowrap;
-        font-weight: bold;
+      body {
+        padding: 1rem 0.8rem 3rem;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Currently Ongoing IIDX DP Events</h1>
-  <table id="event-table">
-    <thead>
-      <tr id="header-row"></tr>
-    </thead>
-    <tbody id="table-body"></tbody>
-  </table>
+  <h1>IIDX DP Event Navigator</h1>
+  <div class="event-list" id="event-list"></div>
 
   <script>
-    const url = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
+    // GASのURLをセットしてください
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
 
-    fetch(url)
+    fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
-        const tableBody = document.getElementById('table-body');
-        const headerRow = document.getElementById('header-row');
+        const container = document.getElementById('event-list');
+        container.innerHTML = '';
 
-        // 表ヘッダーを生成（最初の行のキーを元に）
-        const keys = Object.keys(data[0]);
-        keys.forEach(key => {
-          const th = document.createElement('th');
-          th.textContent = key;
-          headerRow.appendChild(th);
-        });
+        data.forEach(event => {
+          const div = document.createElement('div');
+          div.className = 'event-item';
 
-        // 各行を追加
-        data.forEach(row => {
-          const tr = document.createElement('tr');
-          keys.forEach(key => {
-            const td = document.createElement('td');
-            td.textContent = row[key];
-            td.setAttribute('data-label', key); // モバイル用ラベル
-            tr.appendChild(td);
+          // イベント名
+          const title = document.createElement('div');
+          title.className = 'event-title';
+          title.textContent = event.EventName || 'No Title';
+          div.appendChild(title);
+
+          // 詳細情報
+          const details = [
+            { label: 'Duration:', value: event.EventDuration || '' },
+            { label: 'Organizer:', value: event.Organizer || '' },
+            { label: 'Hashtag:', value: event.Hashtag || '' },
+            { label: 'Submission:', value: event.Submission || '' },
+            { label: 'Category:', value: event.Category || '' },
+            { label: 'Status:', value: event.Status || '' },
+          ];
+
+          details.forEach(({ label, value }) => {
+            if (value) {
+              const p = document.createElement('p');
+              p.className = 'event-detail';
+
+              const spanLabel = document.createElement('span');
+              spanLabel.className = 'event-label';
+              spanLabel.textContent = label;
+
+              p.appendChild(spanLabel);
+              p.appendChild(document.createTextNode(value));
+              div.appendChild(p);
+            }
           });
-          tableBody.appendChild(tr);
+
+          container.appendChild(div);
         });
       })
       .catch(err => {
-        console.error('Error loading data:', err);
+        console.error('Failed to load event data:', err);
+        const container = document.getElementById('event-list');
+        container.textContent = 'Failed to load event data.';
       });
   </script>
 </body>
