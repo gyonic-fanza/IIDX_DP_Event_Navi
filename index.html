@@ -99,18 +99,17 @@
 
         // イベントタイトル用のh2要素を作成しクラス・テキストを設定
         const h2 = document.createElement('h2');
-        h2.className = 'event-title';
+        h2.className = 'title';
         h2.textContent = title;
         div.appendChild(h2); // イベントdivにタイトルを追加
 
         // 表示したい詳細情報のラベルと値を配列で用意
         const details = [
-          { label: 'Event Duration:', value: event['Event Duration'] || '' },
-          { label: 'Organizer:', value: event['Organizer'] || '' },
-          { label: 'Hashtag:', value: event['Hashtag'] || '' },
-          { label: 'Submission:', value: event['Submission'] || '' },
-          { label: 'Category:', value: event['Category'] || '' },
-          { label: 'Status:', value: event['Status'] || '' },
+          { label: 'Event Duration:', value: event['start_date'] || '' },
+          { label: 'Organizer:', value: event['orgnizer_name'] || '' },
+          { label: 'Hashtag:', value: event['hashtag'] || '' },
+          { label: 'Category:', value: event['event_type'] || '' },
+          { label: 'Status:', value: event['status'] || '' },
         ];
 
         // details配列をループし、値があるものだけ表示用のp要素を生成
