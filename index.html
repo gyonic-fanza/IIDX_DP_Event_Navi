@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>IIDX DP Event Navigator</title>
   <style>
-    /* ページ全体のフォントや背景色など */
+    /* ページ全体のフォントや背景色 */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f9f9f9;
@@ -17,7 +17,7 @@
       margin-right: auto;
     }
 
-    /* ページのメインタイトル */
+    /* ページタイトル */
     h1 {
       font-weight: 700;
       font-size: 1.8rem;
@@ -36,10 +36,10 @@
       background-color: #fff;
       border-radius: 6px;
       box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
-      padding: 1rem 1rem 1rem 1rem;
+      padding: 1rem;
       margin-bottom: 1rem;
       border-left: 6px solid #0078d7; /* アクセントカラー */
-      user-select: none; /* タイトルテキストの選択防止 */
+      /* 文字選択を許可するためuser-select削除 */
     }
 
     /* イベントタイトル */
@@ -65,11 +65,12 @@
       margin-right: 0.3rem;
     }
 
-    /* 折りたたみ時は非表示 */
+    /* 折りたたみ時は非表示（今回は使ってない） */
     .event-details-collapsed {
       display: none;
     }
 
+    /* リンクのスタイル */
     a {
       color: #0078d7;
       text-decoration: none;
@@ -91,7 +92,11 @@
   <div class="event-list" id="event-list"></div>
 
 <script>
-  // 日時を「yyyy/mm/dd(aaa) hh:mm:ss」形式で返す関数
+  /**
+   * 日時文字列を「yyyy/mm/dd(aaa) hh:mm:ss」形式にフォーマット
+   * @param {string} dateString ISO形式の日時文字列
+   * @returns {string} フォーマット済み日時文字列
+   */
   function formatDateTime(dateString) {
     if (!dateString) return '';
   
@@ -109,94 +114,96 @@
   
     return `${year}/${month}/${day}(${dayOfWeek}) ${hour}:${minute}:${second}`;
   }
-  // Google Apps ScriptのAPI URLを指定
+
+  // Google Apps ScriptのAPI URL
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxk8j0rNhcpkstS_MZM9q2b_j4W1v0bJyKXU5KtS8zd1Jv1wrLm5VoSaydZsOWOxOOnbQ/exec';
 
-  // APIからイベントデータを取得
+  // イベントデータ取得と表示処理
   fetch(apiUrl)
-    .then(res => res.json()) // レスポンスをJSONに変換
+    .then(res => res.json())
     .then(data => {
       const container = document.getElementById('event-list');
-      container.innerHTML = ''; // 既存の表示をクリア
+      container.innerHTML = ''; // 既存内容をクリア
 
-      // 取得したイベント配列を1件ずつ処理
       data.forEach(event => {
-        // イベント全体のdiv要素を作成し、classを付与
+        // イベントのコンテナ作成
         const div = document.createElement('div');
         div.className = 'event-item';
 
-        // イベントタイトル（なければNo Title）
-        const title = event['title'] || 'No Title';
-
-        // タイトル用h2を作成
+        // イベントタイトル設定
         const h2 = document.createElement('h2');
-        h2.className = 'event-title';  // classを修正
-        h2.textContent = title;
+        h2.className = 'event-title';
+        h2.textContent = event['title'] || 'No Title';
         div.appendChild(h2);
 
-        // 詳細情報をまとめるdivを作成（折りたたみ対象）
-        const detailsDiv = document.createElement('div');
-        detailsDiv.className = 'event-details'; // 初期は表示状態
+        // 詳細情報の生成を関数化して冗長さ軽減
+        const details = generateDetails(event);
 
-        // 表示したい詳細ラベルと値を配列で用意
-        const details = [
-          {
-            label: 'Event Duration:',
-            value: (() => {
-              const tz = event['timezone'] || '';
-              const dates = [formatDateTime(event['start_date']), formatDateTime(event['end_date'])]
-                              .filter(Boolean)
-                              .join(' ～ ');
-              return tz ? `${dates} (${tz})` : dates;
-            })(),
-          },
-          // details配列内のオーガナイザー情報をHTMLリンク付きに置き換え
-          {
-            label: 'Organizer:',
-            value: event['organizer_name'] 
-              ? `<a href="https://example.com/organizer/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
-              : ''
-          },
-          // details配列内のオーガナイザー情報をHTMLリンク付きに置き換え
-          {
-            label: 'Hashtag:',
-            value: event['hashtag'] 
-              ? `<a href="https://x.com/hashtag/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
-              : ''
-          },
-          { label: 'Category:', value: event['event_type'] || '' },
-          { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive' },
-        ];
+        // 各詳細情報をpタグで追加
+        details.forEach(({ label, value, isHTML }) => {
+          if (!value) return;
 
-        // details配列をループし値があればp要素を生成して追加
-        details.forEach(({ label, value }) => {
-          if (value) {
-            const p = document.createElement('p');
-            p.className = 'event-detail';
+          const p = document.createElement('p');
+          p.className = 'event-detail';
 
-            const spanLabel = document.createElement('span');
-            spanLabel.className = 'event-label';
-            spanLabel.textContent = label;
+          const spanLabel = document.createElement('span');
+          spanLabel.className = 'event-label';
+          spanLabel.textContent = label;
+          p.appendChild(spanLabel);
 
-            p.appendChild(spanLabel);
+          // HTMLとして挿入すべきかどうかで分岐
+          if (isHTML) {
+            p.innerHTML += value;  // 文字列としてではなくHTMLとして挿入
+          } else {
             p.appendChild(document.createTextNode(value));
-            detailsDiv.appendChild(p);
           }
+
+          div.appendChild(p);
         });
 
-        // 詳細divをイベントdivに追加
-        div.appendChild(detailsDiv);
-
-        // 完成したイベントdivを親コンテナに追加
+        // イベントコンテナをリストに追加
         container.appendChild(div);
       });
     })
     .catch(err => {
-      // エラー時はコンソールと画面にエラー表示
       console.error('Failed to load event data:', err);
       const container = document.getElementById('event-list');
       container.textContent = 'Failed to load event data.';
     });
+
+  /**
+   * イベント詳細情報を配列で生成
+   * isHTML=trueの場合はvalueがHTML文字列として扱われる
+   * @param {object} event APIから取得したイベントオブジェクト
+   * @returns {Array<{label:string, value:string, isHTML:boolean}>}
+   */
+  function generateDetails(event) {
+    const timezone = event['timezone'] || '';
+    const start = formatDateTime(event['start_date']);
+    const end = formatDateTime(event['end_date']);
+    const duration = [start, end].filter(Boolean).join(' ～ ');
+    const durationWithTz = timezone ? `${duration} (${timezone})` : duration;
+
+    return [
+      { label: 'Event Duration:', value: durationWithTz, isHTML: false },
+      { 
+        label: 'Organizer:', 
+        value: event['organizer_name']
+          ? `<a href="https://example.com/organizer/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
+          : '',
+        isHTML: true
+      },
+      { 
+        label: 'Hashtag:', 
+        value: event['hashtag']
+          ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
+          : '',
+        isHTML: true
+      },
+      { label: 'Category:', value: event['event_type'] || '', isHTML: false },
+      { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
+    ];
+  }
 </script>
 </body>
 </html>
