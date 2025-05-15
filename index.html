@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,11 +10,9 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f9f9f9;
       color: #333;
-      margin: 0;
-      padding: 1rem 1rem 4rem;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+  max-width: 900px;
     }
 
     /* ページタイトル */
@@ -38,7 +36,7 @@
       box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
       padding: 1rem;
       margin-bottom: 1rem;
-      border-left: 6px solid #0078d7; /* アクセントカラー */
+      border-left: 6px solid #005a9e; /* アクセントカラー */
       /* 文字選択を許可するためuser-select削除 */
     }
 
@@ -52,8 +50,8 @@
 
     /* 詳細情報のスタイル */
     .event-detail {
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 1rem;
+      line-height: 1.6;
       margin: 0.2rem 0;
       color: #555;
     }
@@ -89,8 +87,6 @@
 </head>
 <body>
   <h1>IIDX DP Event Navigator</h1>
-  <button id="toggle-sort-btn">Sort: Ascending ↓</button>
-  <button id="toggle-all-btn">すべて開く</button>
   <div class="event-list" id="event-list"></div>
 
 <script>
@@ -112,9 +108,8 @@
     const dayOfWeek = daysOfWeek[date.getDay()];
     const hour = ('0' + date.getHours()).slice(-2);
     const minute = ('0' + date.getMinutes()).slice(-2);
-    const second = ('0' + date.getSeconds()).slice(-2);
   
-    return `${year}/${month}/${day}(${dayOfWeek}) ${hour}:${minute}:${second}`;
+    return `${year}/${month}/${day}(${dayOfWeek}) ${hour}:${minute}`;
   }
 
   // Google Apps ScriptのAPI URL
@@ -123,10 +118,15 @@
   // イベントデータ取得と表示処理
   fetch(apiUrl)
     .then(res => res.json())
-    .then(data => {
+  .then(data => {
+    // date_remain (remain) の昇順にソート
+    data.sort((a, b) => {
+      const remainA = a['date_remain'] ?? Infinity;
+      const remainB = b['date_remain'] ?? Infinity;
+      return remainA - remainB;
+    });
       const container = document.getElementById('event-list');
       container.innerHTML = ''; // 既存内容をクリア
-
 data.forEach(event => {
   const div = document.createElement('div');
   div.className = 'event-item';
@@ -145,6 +145,9 @@ data.forEach(event => {
     img.style.borderRadius = '6px 6px 0 0'; // 上の角を丸めるなど調整
     img.style.display = 'block';
     img.style.marginBottom = '0.5rem';
+img.onerror = () => {
+  img.style.display = 'none'; // もしくは代替画像に差し替え
+};
 
     linkBanner.appendChild(img);
     div.appendChild(linkBanner);
@@ -205,6 +208,7 @@ data.forEach(event => {
     const end = formatDateTime(event['end_date']);
     const duration = [start, end].filter(Boolean).join(' ～ ');
     const durationWithTz = timezone ? `${duration} (${timezone})` : duration;
+    const remain = event['date_remain'] ?? Infinity;
 
     return [
       { label: 'Event Duration:', value: durationWithTz, isHTML: false },
