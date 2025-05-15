@@ -85,30 +85,28 @@ fetch(apiUrl)
       }
 
       // --- バナー画像の表示 ---
-      if (event['banner_url']) {
-        // バナー画像をリンクで囲む（情報URLがあればリンク先に設定）
-        const linkBanner = document.createElement('a');
-        linkBanner.href = event['information_url'] || '#';
-        linkBanner.target = '_blank';
-        linkBanner.rel = 'noopener noreferrer';
+      // バナー画像をリンクで囲む（情報URLがあればリンク先に設定）
+      const linkBanner = document.createElement('a');
+      linkBanner.href = event['information_url'] || '#';
+      linkBanner.target = '_blank';
+      linkBanner.rel = 'noopener noreferrer';
 
-        // 画像要素を作成
-        const img = document.createElement('img');
-        img.src = event['banner_url'];
-        img.alt = event['title'] || 'Event Banner';
-        // スタイル調整
-        img.style.width = '100%';
-        img.style.borderRadius = '6px 6px 0 0';
-        img.style.display = 'block';
-        img.style.marginBottom = '0.5rem';
+      // 画像要素を作成
+      const img = document.createElement('img');
+      img.src = event['banner_url'] || './no_image.png';
+      img.alt = event['title'] || 'Event Banner';
+      // スタイル調整
+      img.style.width = '100%';
+      img.style.borderRadius = '6px 6px 0 0';
+      img.style.display = 'block';
+      img.style.marginBottom = '0.5rem';
 
-        // 画像読み込みエラー時の代替処理
-        img.onerror = () => setFallbackImage(img, event['title'] || 'Event Banner');
+      // 画像読み込みエラー時の代替処理
+      img.onerror = () => setFallbackImage(img, event['title'] || 'Event Banner');
 
-        // 画像をリンク要素に追加し、イベントdivに追加
-        linkBanner.appendChild(img);
-        div.appendChild(linkBanner);
-      }
+      // 画像をリンク要素に追加し、イベントdivに追加
+      linkBanner.appendChild(img);
+      div.appendChild(linkBanner);
 
       // --- イベントタイトルの表示 ---
       const h2 = document.createElement('h2');
