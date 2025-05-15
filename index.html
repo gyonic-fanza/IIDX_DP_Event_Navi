@@ -151,7 +151,13 @@
               return tz ? `${dates} (${tz})` : dates;
             })(),
           },
-          { label: 'Organizer:', value: event['orgnizer_name'] || '' },
+          // details配列内のオーガナイザー情報をHTMLリンク付きに置き換え
+          {
+            label: 'Organizer:',
+            value: event['organizer_name'] 
+              ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
+              : ''
+          },
           { label: 'Hashtag:', value: event['hashtag'] || '' },
           { label: 'Category:', value: event['event_type'] || '' },
           { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive' },
