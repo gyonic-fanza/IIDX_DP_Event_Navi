@@ -87,7 +87,7 @@ footer {
   color: #444;
   line-height: 1.5;
   white-space: pre-wrap; /* 改行を反映 */
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   user-select: text; /* 文字選択可能 */
 }
 
@@ -229,24 +229,24 @@ img.onerror = () => {
     const remain = event['date_remain'] ?? Infinity;
 
     return [
-      { label: 'Event Duration:', value: durationWithTz, isHTML: false },
+      { label: 'Event Duration<br>', value: durationWithTz, isHTML: false },
       { 
-        label: 'Organized by:', 
+        label: 'Organized by<br>', 
         value: event['organizer_name']
           ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
           : '',
         isHTML: true
       },
       { 
-        label: 'Hashtag:', 
+        label: 'Hashtag<br>', 
         value: event['hashtag']
           ? `<a href="https://x.com/hashtag/${encodeURIComponent(event['hashtag'])}" target="_blank" rel="noopener noreferrer">#${event['hashtag']}</a>`
           : '',
         isHTML: true
       },
-      { label: 'Event Type:', value: event['event_type'] || '', isHTML: false },
-      { label: 'Songs:', value: event['songs'] || '', isHTML: false },
-      { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
+      { label: 'Event Type<br>', value: event['event_type'] || '', isHTML: false },
+      { label: 'Songs<br>', value: event['songs'] || '', isHTML: false },
+      { label: 'Status<br>', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
     ];
   }
 </script>
