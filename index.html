@@ -1,29 +1,56 @@
 <!DOCTYPE html>
+<!--
+  HTML5文書であることを宣言。
+  これによりブラウザは最新のHTML仕様に従ってレンダリングします。
+-->
 <html lang="ja">
+<!-- ドキュメントの言語を日本語に指定 -->
 <head>
+  <!-- 文字エンコーディングをUTF-8に設定。日本語を含む多言語を正しく表示するため -->
   <meta charset="UTF-8" />
-<meta name="description" content="beatmania IIDXのDPイベント情報をまとめた非公式ナビゲーションサイト" />
+
+  <!-- ページの概要を記述。検索エンジンの結果やSNS共有時に表示されることがあります -->
+  <meta name="description" content="beatmania IIDXのDPイベント情報をまとめた非公式ナビゲーションサイト" />
+
+  <!-- ビューポートの設定。レスポンシブデザイン対応のため、画面幅に合わせて表示を調整 -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fontsから日本語対応のNoto Sans JPフォントを読み込み -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet" />
+
+  <!-- 外部CSSファイルをリンク。サイト全体のスタイルを定義 -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ブラウザのタブや検索結果に表示されるページタイトル -->
   <title>beatmania IIDX DP Event Navigator</title>
 </head>
+
 <body>
+  <!-- サイトのメインタイトル -->
   <h1>beatmania IIDX DP Event Navigator</h1>
+
+  <!-- イベント一覧を表示するためのコンテナ。JavaScriptで動的に内容を挿入 -->
   <div class="event-list" id="event-list"></div>
-<script src="main.js"></script>
-<footer>
-  <p>⚠ 注意事項
-このページの情報は手動で更新しております。記載内容には細心の注意を払っておりますが、実際のイベント内容と異なる場合がございます。必ず公式リンクにて詳細をご確認ください。
-内容に誤りや未掲載のイベント情報がございましたら、<a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> までご連絡いただけますと幸いです。
 
-⚠ Disclaimer
-All information on this page is updated manually. While every effort has been made to ensure accuracy, discrepancies with actual event details may occur. Please verify details through official links.
-If you notice any mistakes or missing events, please contact <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a>.
+  <!-- 外部JavaScriptファイルを読み込み。ページの動的処理やイベントデータの表示を担当 -->
+  <script src="main.js"></script>
 
-⚠ 안내 사항
-이 페이지의 정보는 수동으로 업데이트되고 있습니다. 가능한 정확성을 기하고 있으나 실제 이벤트 내용과 차이가 있을 수 있습니다. 반드시 공식 링크를 통해 확인하시기 바랍니다.
-오류나 누락된 이벤트가 있을 경우 <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> 에 연락 부탁드립니다.</p>
-</footer>
+  <!-- ページ下部のフッター -->
+  <footer>
+    <p>
+      ⚠ 注意事項<br />
+      このページの情報は手動で更新しております。記載内容には細心の注意を払っておりますが、実際のイベント内容と異なる場合がございます。必ず公式リンクにて詳細をご確認ください。<br />
+      内容に誤りや未掲載のイベント情報がございましたら、<a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> までご連絡いただけますと幸いです。<br /><br />
+
+      ⚠ Disclaimer<br />
+      All information on this page is updated manually. While every effort has been made to ensure accuracy, discrepancies with actual event details may occur. Please verify details through official links.<br />
+      If you notice any mistakes or missing events, please contact <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a>.<br /><br />
+
+      ⚠ 안내 사항<br />
+      이 페이지의 정보는 수동으로 업데이트되고 있습니다. 가능한 정확성을 기하고 있으나 실제 이벤트 내용과 차이가 있을 수 있습니다. 반드시 공식 링크를 통해 확인하시기 바랍니다.<br />
+      오류나 누락된 이벤트가 있을 경우 <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> 에 연락 부탁드립니다。
+    </p>
+  </footer>
 </body>
+
 </html>
