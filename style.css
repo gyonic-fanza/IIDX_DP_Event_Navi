@@ -2,60 +2,60 @@
    ページ全体のフォントや背景色設定
    ================================ */
 body {
-  font-family: "Noto Sans JP", sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  margin: 0 auto;
-  padding: 1rem 1rem 4rem;
-  max-width: 900px;
+  font-family: "Noto Sans JP", sans-serif; /* 日本語にも対応した読みやすいフォント */
+  background-color: #f9f9f9;               /* 明るく柔らかい背景色 */
+  color: #333;                             /* 文字は濃いグレーで読みやすく */
+  margin: 0 auto;                         /* 横中央寄せ（左右の余白は自動） */
+  padding: 1rem 1rem 4rem;                /* 上左右に1rem、下に4remの余白 */
+  max-width: 900px;                       /* ページ幅の最大値 */
 }
 
 /* ページタイトルのスタイル */
 h1 {
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid #444;
-  padding-bottom: 0.3rem;
+  font-weight: 700;                       /* 太字 */
+  font-size: 1.8rem;                      /* 大きめの文字サイズ */
+  margin-bottom: 0.5rem;                  /* 下に余白 */
+  border-bottom: 2px solid #444;          /* タイトル下に濃い線を引く */
+  padding-bottom: 0.3rem;                 /* 線と文字の間隔 */
 }
 
 /* イベント一覧の親コンテナ */
 .event-list {
-  margin-top: 1.5rem;
+  margin-top: 1.5rem;                     /* 上に余白 */
 }
 
 /* 各イベントのコンテナ */
 .event-item {
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-left: 6px solid #005a9e; /* アクセントカラー */
-  /* 文字選択を妨げないよう user-select は設定しない */
+  background-color: #fff;                 /* 白背景で見やすく */
+  border-radius: 6px;                     /* 角を丸く */
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1); /* うっすら影をつけて浮き上がらせる */
+  padding: 1rem;                         /* 内側の余白 */
+  margin-bottom: 1rem;                    /* 下のイベントとの間隔 */
+  border-left: 6px solid #005a9e;        /* 左側にアクセントカラーの太線 */
+  /* 文字選択を妨げないため user-select は設定しない */
 }
 
 /* イベントタイトル */
 .event-title {
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-  color: #0078d7;
+  font-weight: 700;                       /* 太字 */
+  font-size: 1.2rem;                      /* 少し大きめ */
+  margin-bottom: 0.3rem;                  /* 下に軽く余白 */
+  color: #0078d7;                        /* メインカラーに近い青 */
 }
 
 /* イベント詳細情報 */
 .event-detail {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0.2rem 0;
-  color: #555;
+  font-size: 1rem;                        /* 通常の文字サイズ */
+  line-height: 1.6;                      /* 行間を広めにして読みやすく */
+  margin: 0.2rem 0;                      /* 上下に小さな余白 */
+  color: #555;                          /* 少し薄めのグレーで柔らかく */
 }
 
 /* ラベルのスタイル */
 .event-label {
-  font-weight: 600;
-  color: #444;
-  margin-right: 0.3rem;
+  font-weight: 600;                      /* 少し太め */
+  color: #444;                          /* 濃いめのグレー */
+  margin-right: 0.3rem;                 /* 右に少し間隔 */
 }
 
 /* 折りたたみ時の非表示（今回は未使用） */
@@ -65,59 +65,40 @@ h1 {
 
 /* リンクの基本スタイル */
 a {
-  color: #0078d7;
-  text-decoration: none;
+  color: #0078d7;                       /* 青色リンク */
+  text-decoration: none;                /* 下線なし */
 }
 
 /* リンクホバー時の装飾 */
 a:hover {
-  text-decoration: underline;
+  text-decoration: underline;           /* ホバーで下線を表示 */
 }
 
 /* 残り日数など「remain」を強調するスタイル */
 .event-remaining {
-  font-weight: bold;
-  font-size: 1.5rem;   /* 通常の約1.5倍のサイズ */
-  color: #d9534f;      /* 目立つ赤色 */
-  margin-bottom: 0.5rem;
+  font-weight: bold;                     /* 太字 */
+  font-size: 1.5rem;                    /* 標準より約1.5倍の大きさ */
+  color: #d9534f;                       /* 目立つ赤色 */
+  margin-bottom: 0.5rem;                /* 下に少し余白 */
 }
 
 /* フッターのスタイル */
 footer {
-  background-color: #fff8e1; /* 薄いクリーム色で注意を強調 */
-  border-top: 1px solid #ddd;
-  padding: 1.5rem 1rem;
-  margin-top: 3rem;
-  font-size: 0.9rem;
-  color: #444;
-  line-height: 1.5;
-  white-space: pre-wrap;      /* 改行を反映 */
-  font-family: "Noto Sans JP", sans-serif;
-  user-select: text;          /* 文字選択を許可 */
+  background-color: #fff8e1;            /* 薄いクリーム色で注意や区切りを示す */
+  border-top: 1px solid #ddd;           /* 上に薄い境界線 */
+  padding: 1.5rem 1rem;                  /* 内側の余白 */
+  margin-top: 3rem;                     /* 上に十分な余白を空ける */
+  font-size: 0.9rem;                    /* 少し小さめの文字サイズ */
+  color: #444;                         /* 濃いめのグレー */
+  line-height: 1.5;                    /* 行間を広めに */
+  white-space: pre-wrap;               /* 改行をそのまま反映 */
+  font-family: "Noto Sans JP", sans-serif; /* フッターも同じフォント */
+  user-select: text;                   /* 文字選択を許可 */
 }
 
 footer p {
-  margin: 0;
-  white-space: pre-wrap;      /* 改行をきちんと表示 */
-}
-
-/* ================================
-   ダークモード対応
-   ================================ */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1e1e1e;
-    color: #eee;
-  }
-
-  .event-item {
-    background-color: #2c2c2c;
-    border-left-color: #3399ff; /* ダークモード用アクセントカラー */
-  }
-
-  a {
-    color: #66ccff;
-  }
+  margin: 0;                          /* デフォルトの余白をリセット */
+  white-space: pre-wrap;              /* 改行をきちんと表示 */
 }
 
 /* ================================
@@ -125,6 +106,6 @@ footer p {
    ================================ */
 @media (max-width: 600px) {
   body {
-    padding: 1rem 0.8rem 3rem;
+    padding: 1rem 0.8rem 3rem;        /* 横のpaddingを少し狭く */
   }
 }
