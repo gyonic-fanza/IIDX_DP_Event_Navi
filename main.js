@@ -93,7 +93,7 @@ fetch(apiUrl)
 
       // 画像要素を作成
       const img = document.createElement('img');
-      img.src = event['banner_url'] || 'https://drive.google.com/file/d/19tWP1pC69ZF9lssAa2DsisRhNdxLeFcq/view?usp=sharing';
+      img.src = event['banner_url'];
       img.alt = event['title'] || 'Event Banner';
       // スタイル調整
       img.style.width = '100%';
@@ -235,6 +235,6 @@ function generateDetails(event) {
  */
 function setFallbackImage(img, altText) {
   // 例：代替画像URLを指定する
-  img.src = 'path/to/fallback-image.png';
+  img.src = 'https://drive.google.com/file/d/19tWP1pC69ZF9lssAa2DsisRhNdxLeFcq/view?usp=sharing';
   img.alt = altText + ' (image not available)';
 }
