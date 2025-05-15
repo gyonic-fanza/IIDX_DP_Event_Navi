@@ -93,7 +93,7 @@ fetch(apiUrl)
 
       // 画像要素を作成
       const img = document.createElement('img');
-      img.src = event['banner_url'] || './no_image.png';
+      img.src = event['banner_url'] || 'https://drive.google.com/file/d/19tWP1pC69ZF9lssAa2DsisRhNdxLeFcq/view?usp=sharing';
       img.alt = event['title'] || 'Event Banner';
       // スタイル調整
       img.style.width = '100%';
