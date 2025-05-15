@@ -213,7 +213,7 @@ img.onerror = () => {
     return [
       { label: 'Event Duration:', value: durationWithTz, isHTML: false },
       { 
-        label: 'Organizer:', 
+        label: 'Organized by:', 
         value: event['organizer_name']
           ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
           : '',
@@ -226,7 +226,7 @@ img.onerror = () => {
           : '',
         isHTML: true
       },
-      { label: 'Category:', value: event['event_type'] || '', isHTML: false },
+      { label: 'Event Type:', value: event['event_type'] || '', isHTML: false },
       { label: 'Songs:', value: event['songs'] || '', isHTML: false },
       { label: 'Status:', value: event['status'] ? 'Active' : 'Inactive', isHTML: false },
     ];
