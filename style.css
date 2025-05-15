@@ -9,29 +9,6 @@ body {
   padding: 1rem 1rem 4rem;                /* 上左右に1rem、下に4remの余白 */
   max-width: 900px;                       /* ページ幅の最大値 */
 }
-.event-duration::before {
-  content: "⏰ "; /* 時計 */
-}
-
-.event-organizer::before {
-  content: "👤 "; /* 人のシルエット */
-}
-
-.event-hashtag::before {
-  content: "🏷️ "; /* ラベルタグ */
-}
-
-.event-type::before {
-  content: "🎯 "; /* 的（スコアアタックのイメージ） */
-}
-
-.event-songs::before {
-  content: "🎵 "; /* 音符 */
-}
-
-.event-status::before {
-  content: "📌 "; /* 付箋・ステータスの印 */
-}
 /* ページタイトルのスタイル */
 h1 {
   font-weight: 700;                       /* 太字 */
