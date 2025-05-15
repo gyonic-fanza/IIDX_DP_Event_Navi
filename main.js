@@ -79,21 +79,28 @@ img.onerror = () => {
 
   // 以降、詳細情報の追加（generateDetails関数を利用）
   const details = generateDetails(event);
-  details.forEach(({ label, value, isHTML }) => {
-    if (!value) return;
-    const p = document.createElement('p');
-    p.className = 'event-detail';
-    const spanLabel = document.createElement('span');
-    spanLabel.className = 'event-label';
-    spanLabel.textContent = label;
-    p.appendChild(spanLabel);
-    if (isHTML) {
-      p.innerHTML += value;
-    } else {
-      p.appendChild(document.createTextNode(value));
-    }
-    div.appendChild(p);
-  });
+details.forEach(({ label, value, isHTML }) => {
+  if (!value) return;
+  const p = document.createElement('p');
+  p.className = 'event-detail';
+  const spanLabel = document.createElement('span');
+  spanLabel.className = 'event-label';
+
+  // ⚠️ ここで innerHTML を使って <br> を有効にする
+  spanLabel.innerHTML = label;
+
+  p.appendChild(spanLabel);
+
+  if (isHTML) {
+    const valueSpan = document.createElement('span');
+    valueSpan.innerHTML = value;
+    p.appendChild(valueSpan);
+  } else {
+    p.appendChild(document.createTextNode(value));
+  }
+
+  div.appendChild(p);
+});});
 
   container.appendChild(div);
 });
