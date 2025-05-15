@@ -1,0 +1,108 @@
+    /* ページ全体のフォントや背景色 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e1e1e;
+    color: #eee;
+  }
+  .event-item {
+    background-color: #2c2c2c;
+    border-left-color: #3399ff;
+  }
+  a {
+    color: #66ccff;
+  }
+}
+    body {
+font-family: "Noto Sans JP", sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+  max-width: 900px;
+    }
+
+    /* ページタイトル */
+    h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #444;
+      padding-bottom: 0.3rem;
+    }
+
+    /* イベント一覧の親コンテナ */
+    .event-list {
+      margin-top: 1.5rem;
+    }
+
+    /* 各イベントのコンテナ */
+    .event-item {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid #005a9e; /* アクセントカラー */
+      /* 文字選択を許可するためuser-select削除 */
+    }
+
+    /* イベントタイトル */
+    .event-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      color: #0078d7;
+    }
+
+    /* 詳細情報のスタイル */
+    .event-detail {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0.2rem 0;
+      color: #555;
+    }
+
+    /* ラベルのスタイル */
+    .event-label {
+      font-weight: 600;
+      color: #444;
+      margin-right: 0.3rem;
+    }
+
+    /* 折りたたみ時は非表示（今回は使ってない） */
+    .event-details-collapsed {
+      display: none;
+    }
+
+    /* リンクのスタイル */
+    a {
+      color: #0078d7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+footer {
+  background-color: #fff8e1; /* 薄いクリーム色で注意を強調 */
+  border-top: 1px solid #ddd;
+  padding: 1.5rem 1rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.5;
+  white-space: pre-wrap; /* 改行を反映 */
+  font-family: "Noto Sans JP", sans-serif;
+  user-select: text; /* 文字選択可能 */
+}
+
+footer p {
+  margin: 0;
+  white-space: pre-wrap; /* 改行をきちんと表示 */
+}
+    /* スマホ対応の余白調整 */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0.8rem 3rem;
+      }
+    }
