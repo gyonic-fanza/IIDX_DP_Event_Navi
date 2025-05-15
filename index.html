@@ -125,45 +125,65 @@
       const container = document.getElementById('event-list');
       container.innerHTML = ''; // 既存内容をクリア
 
-      data.forEach(event => {
-        // イベントのコンテナ作成
-        const div = document.createElement('div');
-        div.className = 'event-item';
+data.forEach(event => {
+  const div = document.createElement('div');
+  div.className = 'event-item';
 
-        // イベントタイトル設定
-        const h2 = document.createElement('h2');
-        h2.className = 'event-title';
-        h2.textContent = event['title'] || 'No Title';
-        div.appendChild(h2);
+  // banner_urlがある場合はリンク付き画像を作成
+  if (event['banner_url']) {
+    const linkBanner = document.createElement('a');
+    linkBanner.href = event['information_url'] || '#';
+    linkBanner.target = '_blank';
+    linkBanner.rel = 'noopener noreferrer';
 
-        // 詳細情報の生成を関数化して冗長さ軽減
-        const details = generateDetails(event);
+    const img = document.createElement('img');
+    img.src = event['banner_url'];
+    img.alt = event['title'] || 'Event Banner';
+    img.style.width = '100%';
+    img.style.borderRadius = '6px 6px 0 0'; // 上の角を丸めるなど調整
+    img.style.display = 'block';
+    img.style.marginBottom = '0.5rem';
 
-        // 各詳細情報をpタグで追加
-        details.forEach(({ label, value, isHTML }) => {
-          if (!value) return;
+    linkBanner.appendChild(img);
+    div.appendChild(linkBanner);
+  }
 
-          const p = document.createElement('p');
-          p.className = 'event-detail';
+  // イベントタイトルにリンクをつける
+  const h2 = document.createElement('h2');
+  h2.className = 'event-title';
 
-          const spanLabel = document.createElement('span');
-          spanLabel.className = 'event-label';
-          spanLabel.textContent = label;
-          p.appendChild(spanLabel);
+  if (event['information_url']) {
+    const linkTitle = document.createElement('a');
+    linkTitle.href = event['information_url'];
+    linkTitle.target = '_blank';
+    linkTitle.rel = 'noopener noreferrer';
+    linkTitle.textContent = event['title'] || 'No Title';
+    h2.appendChild(linkTitle);
+  } else {
+    h2.textContent = event['title'] || 'No Title';
+  }
+  div.appendChild(h2);
 
-          // HTMLとして挿入すべきかどうかで分岐
-          if (isHTML) {
-            p.innerHTML += value;  // 文字列としてではなくHTMLとして挿入
-          } else {
-            p.appendChild(document.createTextNode(value));
-          }
+  // 以降、詳細情報の追加（generateDetails関数を利用）
+  const details = generateDetails(event);
+  details.forEach(({ label, value, isHTML }) => {
+    if (!value) return;
+    const p = document.createElement('p');
+    p.className = 'event-detail';
+    const spanLabel = document.createElement('span');
+    spanLabel.className = 'event-label';
+    spanLabel.textContent = label;
+    p.appendChild(spanLabel);
+    if (isHTML) {
+      p.innerHTML += value;
+    } else {
+      p.appendChild(document.createTextNode(value));
+    }
+    div.appendChild(p);
+  });
 
-          div.appendChild(p);
-        });
-
-        // イベントコンテナをリストに追加
-        container.appendChild(div);
-      });
+  container.appendChild(div);
+});
     })
     .catch(err => {
       console.error('Failed to load event data:', err);
@@ -189,7 +209,7 @@
       { 
         label: 'Organizer:', 
         value: event['organizer_name']
-          ? `<a href="https://example.com/organizer/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
+          ? `<a href="https://x.com/${event['organizer_id'] || '#'}" target="_blank" rel="noopener noreferrer">${event['organizer_name']}</a>`
           : '',
         isHTML: true
       },
