@@ -92,6 +92,24 @@
   <div class="event-list" id="event-list"></div>
 
 <script>
+  // 日時を「yyyy/mm/dd(aaa) hh:mm:ss」形式で返す関数
+  function formatDateTime(dateString) {
+    if (!dateString) return '';
+  
+    const date = new Date(dateString);
+    if (isNaN(date)) return dateString;
+  
+    const daysOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const hour = ('0' + date.getHours()).slice(-2);
+    const minute = ('0' + date.getMinutes()).slice(-2);
+    const second = ('0' + date.getSeconds()).slice(-2);
+  
+    return `${year}/${month}/${day}(${dayOfWeek}) ${hour}:${minute}:${second}`;
+  }
   // Google Apps ScriptのAPI URLを指定
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxk8j0rNhcpkstS_MZM9q2b_j4W1v0bJyKXU5KtS8zd1Jv1wrLm5VoSaydZsOWOxOOnbQ/exec';
 
@@ -123,7 +141,16 @@
 
         // 表示したい詳細ラベルと値を配列で用意
         const details = [
-          { label: 'Event Duration:', value: `${event['start_date'] || ''} 〜 ${event['end_date'] || ''}` },
+          {
+            label: 'Event Duration:',
+            value: (() => {
+              const tz = event['timezone'] || '';
+              const dates = [formatDateTime(event['start_date']), formatDateTime(event['end_date'])]
+                              .filter(Boolean)
+                              .join(' ～ ');
+              return tz ? `${dates} (${tz})` : dates;
+            })(),
+          },
           { label: 'Organizer:', value: event['orgnizer_name'] || '' },
           { label: 'Hashtag:', value: event['hashtag'] || '' },
           { label: 'Category:', value: event['event_type'] || '' },
@@ -148,16 +175,6 @@
 
         // 詳細divをイベントdivに追加
         div.appendChild(detailsDiv);
-
-        // タイトルクリックで詳細部分を折りたたみ切り替え
-        h2.addEventListener('click', () => {
-          // detailsDivのdisplay切り替え
-          if (detailsDiv.style.display === 'none') {
-            detailsDiv.style.display = 'block';
-          } else {
-            detailsDiv.style.display = 'none';
-          }
-        });
 
         // 完成したイベントdivを親コンテナに追加
         container.appendChild(div);
