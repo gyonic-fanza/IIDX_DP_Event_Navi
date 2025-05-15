@@ -77,24 +77,33 @@
   <div class="event-list" id="event-list"></div>
 
 <script>
+  // Google Apps ScriptのAPI URLを指定
   const apiUrl = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
 
+  // APIからデータを取得
   fetch(apiUrl)
-    .then(res => res.json())
+    .then(res => res.json()) // レスポンスをJSONとしてパース
     .then(data => {
+      // イベント一覧を表示する親要素を取得
       const container = document.getElementById('event-list');
-      container.innerHTML = ''; // クリア
+      container.innerHTML = ''; // 既存の内容をクリアしてから新たに表示
 
+      // 取得したデータ（イベント配列）を1件ずつ処理
       data.forEach(event => {
+        // 1イベント分のコンテナdivを作成しクラスを設定
         const div = document.createElement('div');
         div.className = 'event-item';
 
+        // イベント名を取得、なければ'No Title'を代入
         const title = event['Event Name'] || 'No Title';
+
+        // イベントタイトル用のh2要素を作成しクラス・テキストを設定
         const h2 = document.createElement('h2');
         h2.className = 'event-title';
         h2.textContent = title;
-        div.appendChild(h2);
+        div.appendChild(h2); // イベントdivにタイトルを追加
 
+        // 表示したい詳細情報のラベルと値を配列で用意
         const details = [
           { label: 'Event Duration:', value: event['Event Duration'] || '' },
           { label: 'Organizer:', value: event['Organizer'] || '' },
@@ -104,25 +113,31 @@
           { label: 'Status:', value: event['Status'] || '' },
         ];
 
+        // details配列をループし、値があるものだけ表示用のp要素を生成
         details.forEach(({ label, value }) => {
           if (value) {
-            const p = document.createElement('p');
-            p.className = 'event-detail';
+            const p = document.createElement('p'); // p要素作成
+            p.className = 'event-detail'; // クラス設定
 
-            const spanLabel = document.createElement('span');
-            spanLabel.className = 'event-label';
-            spanLabel.textContent = label;
+            const spanLabel = document.createElement('span'); // ラベル用spanを作成
+            spanLabel.className = 'event-label'; // ラベル用のクラス設定
+            spanLabel.textContent = label; // ラベルテキスト設定
 
+            // p要素にラベルと値のテキストノードを追加
             p.appendChild(spanLabel);
             p.appendChild(document.createTextNode(value));
+
+            // イベントdivにp要素を追加
             div.appendChild(p);
           }
         });
 
+        // 完成したイベントdivを親コンテナに追加
         container.appendChild(div);
       });
     })
     .catch(err => {
+      // エラー発生時の処理：コンソールにエラーを表示し、画面にメッセージを表示
       console.error('Failed to load event data:', err);
       const container = document.getElementById('event-list');
       container.textContent = 'Failed to load event data.';
