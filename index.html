@@ -76,47 +76,57 @@
   <h1>IIDX DP Event Navigator</h1>
   <div class="event-list" id="event-list"></div>
 
-  <script>
-    // GASのURLをセットしてください
-    const apiUrl = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
+<script>
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbzZ_-8BDQc2LZgynJNN0HnC1pz87JYl-7m9rWsSg5_7dYhPxbbNPEwAb-QJP2x3Ee_KKg/exec';
 
-fetch(apiUrl)
-  .then(res => res.json())
-  .then(data => {
-    data.forEach(event => {
-      const title = event['Event Name'] || 'No Title';
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('event-list');
+      container.innerHTML = ''; // クリア
 
-      const details = [
-        { label: 'Event Duration:', value: event['Event Duration'] || '' },
-        { label: 'Organizer:', value: event['Organizer'] || '' },
-        { label: 'Hashtag:', value: event['Hashtag'] || '' },
-        { label: 'Submission:', value: event['Submission'] || '' },
-        { label: 'Category:', value: event['Category'] || '' },
-        { label: 'Status:', value: event['Status'] || '' },
-      ];
-      details.forEach(({ label, value }) => {
-            if (value) {
-              const p = document.createElement('p');
-              p.className = 'event-detail';
+      data.forEach(event => {
+        const div = document.createElement('div');
+        div.className = 'event-item';
 
-              const spanLabel = document.createElement('span');
-              spanLabel.className = 'event-label';
-              spanLabel.textContent = label;
+        const title = event['Event Name'] || 'No Title';
+        const h2 = document.createElement('h2');
+        h2.className = 'event-title';
+        h2.textContent = title;
+        div.appendChild(h2);
 
-              p.appendChild(spanLabel);
-              p.appendChild(document.createTextNode(value));
-              div.appendChild(p);
-            }
-          });
+        const details = [
+          { label: 'Event Duration:', value: event['Event Duration'] || '' },
+          { label: 'Organizer:', value: event['Organizer'] || '' },
+          { label: 'Hashtag:', value: event['Hashtag'] || '' },
+          { label: 'Submission:', value: event['Submission'] || '' },
+          { label: 'Category:', value: event['Category'] || '' },
+          { label: 'Status:', value: event['Status'] || '' },
+        ];
 
-          container.appendChild(div);
+        details.forEach(({ label, value }) => {
+          if (value) {
+            const p = document.createElement('p');
+            p.className = 'event-detail';
+
+            const spanLabel = document.createElement('span');
+            spanLabel.className = 'event-label';
+            spanLabel.textContent = label;
+
+            p.appendChild(spanLabel);
+            p.appendChild(document.createTextNode(value));
+            div.appendChild(p);
+          }
         });
-      })
-      .catch(err => {
-        console.error('Failed to load event data:', err);
-        const container = document.getElementById('event-list');
-        container.textContent = 'Failed to load event data.';
+
+        container.appendChild(div);
       });
-  </script>
+    })
+    .catch(err => {
+      console.error('Failed to load event data:', err);
+      const container = document.getElementById('event-list');
+      container.textContent = 'Failed to load event data.';
+    });
+</script>
 </body>
 </html>
