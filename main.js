@@ -235,6 +235,6 @@ function generateDetails(event) {
  */
 function setFallbackImage(img, altText) {
   // 例：代替画像URLを指定する
-  img.src = 'https://drive.google.com/file/d/19tWP1pC69ZF9lssAa2DsisRhNdxLeFcq/view?usp=sharing';
+  img.src = 'https://drive.google.com/uc?export=view&id=19tWP1pC69ZF9lssAa2DsisRhNdxLeFcq';
   img.alt = altText + ' (image not available)';
 }
