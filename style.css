@@ -97,7 +97,7 @@ a:hover {
    ================================ */
 .event-remaining {
   font-weight: bold;                     /* 太字にして強調 */
-  font-size: 1.5rem;                    /* 通常より1.5倍ほど大きく */
+  font-size: 3rem;                       /* 通常より3倍ほど大きく */
   color: #d9534f;                       /* 注意を引く赤色 */
   margin-bottom: 0.5rem;                /* 下に余白を設ける */
 }
