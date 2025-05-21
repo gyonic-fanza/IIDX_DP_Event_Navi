@@ -1,136 +1,177 @@
 /* ================================
-   ページ全体のフォント・背景・基本レイアウト設定
+   基本スタイル
    ================================ */
-body {
-  font-family: "Noto Sans JP", sans-serif; /* 日本語対応かつ読みやすいサンセリフ体 */
-  background-color: #f9f9f9;                /* 明るく柔らかいグレー系背景色 */
-  color: #333;                              /* 濃いグレーの文字色で視認性を確保 */
-  margin: 0 auto;                          /* 左右のマージンを自動にして横中央寄せ */
-  padding: 1rem 1rem 4rem;                 /* 上左右に1rem、下に4remの余白 */
-  max-width: 900px;                        /* ページの最大幅を900pxに制限 */
-}
-
-/* ================================
-   ページタイトル（h1）の装飾
-   ================================ */
-h1 {
-  font-weight: 700;                        /* 太字で強調 */
-  font-size: 1.8rem;                       /* 大きめの文字サイズ */
-  margin-bottom: 0.5rem;                   /* 下部に余白を設けて分離 */
-  border-bottom: 2px solid #444;           /* タイトル下に濃いグレーの線を引く */
-  padding-bottom: 0.3rem;                  /* 線と文字の間隔を確保 */
-}
-
-/* ================================
-   イベント一覧コンテナ
-   ================================ */
-.event-list {
-  margin-top: 1.5rem;                      /* 上部に余白を設けてタイトルから分離 */
-}
-
-/* ================================
-   個別イベントのコンテナ装飾
-   ================================ */
-.event-item {
-  background-color: #fff;                  /* 白背景で明瞭に */
-  border-radius: 6px;                      /* 角を丸くして柔らかい印象 */
-  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1); /* 軽い影で浮き上がるように */
-  padding: 1rem;                          /* 内側に余白を確保 */
-  margin-bottom: 1rem;                     /* イベント間のスペース */
-  border-left: 6px solid #005a9e;         /* 左側にアクセントカラーの太い線 */
-  /* user-selectはあえて設定せず、テキスト選択を妨げない */
-}
-
-/* ================================
-   イベントタイトル（h2）スタイル
-   ================================ */
-.event-title {
-  font-weight: 700;                       /* 太字で強調 */
-  font-size: 1.2rem;                      /* 少し大きめのサイズ */
-  margin-bottom: 0.3rem;                  /* 下に控えめな余白 */
-  color: #0078d7;                        /* メインカラーの青に近い色 */
-}
-
-/* ================================
-   イベント詳細情報テキスト
-   ================================ */
-.event-detail {
-  font-size: 1rem;                        /* 標準的な文字サイズ */
-  line-height: 1.6;                      /* 行間を広めにして読みやすく */
-  margin: 0.2rem 0;                      /* 上下に少し余白を設ける */
-  color: #555;                          /* やや薄めのグレーで柔らかい印象 */
-}
-
-/* ================================
-   詳細情報のラベル部分スタイル
-   ================================ */
-.event-label {
-  font-weight: 600;                      /* 少し太めで目立たせる */
-  color: #444;                          /* 濃いグレーで視認性良好 */
-  margin-right: 0.3rem;                 /* ラベルと値の間に間隔を設ける */
-}
-
-/* ================================
-   折りたたみ時の非表示（現状未使用）
-   ================================ */
-.event-details-collapsed {
-  display: none;
-}
-
-/* ================================
-   リンク（aタグ）の基本スタイル
-   ================================ */
-a {
-  color: #0078d7;                       /* 青色でリンクを示す */
-  text-decoration: none;                /* 下線は基本的に無し */
-}
-
-/* ================================
-   リンクホバー時の装飾
-   ================================ */
-a:hover {
-  text-decoration: underline;           /* ホバー時に下線を表示し識別性向上 */
-}
-
-/* ================================
-   残り日数などの強調スタイル
-   ================================ */
-.event-remaining {
-  font-weight: bold;                     /* 太字にして強調 */
-  font-size: 1.5rem;                     /* 通常より1.5倍ほど大きく */
-  color: #d9534f;                       /* 注意を引く赤色 */
-  margin-bottom: 0.5rem;                /* 下に余白を設ける */
-}
-
-/* ================================
-   フッター全体のスタイル
-   ================================ */
-footer {
-  background-color: #fff8e1;            /* 薄いクリーム色で柔らかい印象 */
-  border-top: 1px solid #ddd;           /* 上部に薄い境界線を設置 */
-  padding: 1.5rem 1rem;                  /* 内側に余白を確保 */
-  margin-top: 3rem;                     /* 上部に広めのスペース */
-  font-size: 0.9rem;                    /* 少し小さめの文字サイズ */
-  color: #444;                         /* 濃いグレーで読みやすく */
-  line-height: 1.5;                    /* 行間をやや広めに */
-  white-space: pre-wrap;               /* 改行コードをそのまま反映 */
-  font-family: "Noto Sans JP", sans-serif; /* ボディと同じフォントを使用 */
-  user-select: text;                   /* フッター内のテキスト選択を許可 */
-}
-
-/* ================================
-   フッター内の段落スタイル調整
-   ================================ */
-footer p {
-  margin: 0;                          /* デフォルトの余白をリセット */
-  white-space: pre-wrap;              /* 改行をきちんと表示 */
-}
-
-/* ================================
-   スマートフォンなど画面幅600px以下のレスポンシブ調整
-   ================================ */
-@media (max-width: 600px) {
-  body {
-    padding: 1rem 0.8rem 3rem;        /* 横のパディングを少し狭くして調整 */
+   body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1rem 4rem;
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
   }
-}
+  
+  /* ================================
+     タイトル (h1)
+     ================================ */
+  h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #444;
+    padding-bottom: 0.3rem;
+  }
+  
+  /* ================================
+     水平線
+     ================================ */
+  hr {
+    border: 1px solid #444;
+  }
+  
+  /* ================================
+     イベント一覧コンテナ
+     ================================ */
+  .event-list {
+    margin-top: 1.5rem;
+  }
+  
+  /* ================================
+     個別イベントコンテナ
+     ================================ */
+  .event-item {
+    background-color: #fff;
+    border-left: 6px solid #005a9e;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* ================================
+     イベントタイトル (h2)
+     ================================ */
+  .event-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #0078d7;
+  }
+  
+  /* ================================
+     イベント詳細テキスト
+     ================================ */
+  .event-detail {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0.2rem 0;
+    color: #555;
+  }
+  
+  /* ================================
+     詳細情報ラベル
+     ================================ */
+  .event-label {
+    font-weight: 600;
+    color: #444;
+    margin-right: 0.3rem;
+  }
+  
+  /* ================================
+     折りたたみ時の非表示（未使用）
+     ================================ */
+  .event-details-collapsed {
+    display: none;
+  }
+  
+  /* ================================
+     リンクスタイル
+     ================================ */
+  a {
+    color: #0078d7;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ================================
+     残り日数強調
+     ================================ */
+  .event-remaining {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #d9534f;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* ================================
+     フッター
+     ================================ */
+  footer {
+    background-color: #fff8e1;
+    border-top: 2px solid #444;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    font-family: "Noto Sans JP", sans-serif;
+    user-select: text;
+  }
+  footer p {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+  
+  /* ================================
+     レスポンシブ調整 (画面幅600px以下)
+     ================================ */
+  @media (max-width: 600px) {
+    body {
+      padding: 1rem 0.8rem 3rem;
+    }
+  }
+  
+  /* ================================
+     特殊クラス
+     ================================ */
+  .urgent-event {
+    color: red;
+    font-weight: bold;
+  }
+  .gray-background {
+    background-color: #d0d0d0;
+  }
+  .register-link {
+    margin: 1.5em 0;
+    text-align: center;
+  }
+  .btn-register {
+    display: inline-block;
+    padding: 1.2em 2.4em;
+    background-color: #0057b7;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .btn-register:hover {
+    background-color: #003f7d;
+  }
+  .tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    max-width: 300px;
+    pointer-events: none; /* ツールチップ自体はマウスイベント無効 */
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }

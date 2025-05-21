@@ -1,78 +1,56 @@
 <!DOCTYPE html>
-<!--
-  HTML5文書であることを宣言。
-  これによりブラウザは最新のHTML仕様に従ってレンダリングします。
--->
+<!-- HTML5文書宣言。最新仕様でのレンダリングを促す -->
 <html lang="ja">
-<!-- ドキュメントの言語を日本語に指定 -->
 <head>
-  <!-- 文字エンコーディングをUTF-8に設定。日本語を含む多言語を正しく表示するため -->
+  <!-- 文字エンコーディング（UTF-8）設定。多言語対応 -->
   <meta charset="UTF-8" />
 
-  <!-- ページの概要を記述。検索エンジンの結果やSNS共有時に表示されることがあります -->
+  <!-- ページ概要。SEOやSNSで表示される -->
   <meta name="description" content="beatmania IIDXのDPイベント情報をまとめた非公式ナビゲーションサイト" />
 
-  <!-- ビューポートの設定。レスポンシブデザイン対応のため、画面幅に合わせて表示を調整 -->
+  <!-- レスポンシブ対応。画面幅に合わせて表示調整 -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Fontsから日本語対応のNoto Sans JPフォントを読み込み -->
+  <!-- Google Fonts 日本語対応Noto Sans JP -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet" />
 
-  <!-- 外部CSSファイルをリンク。サイト全体のスタイルを定義 -->
+  <!-- 外部CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ブラウザのタブや検索結果に表示されるページタイトル -->
   <title>beatmania IIDX DP Event Navigator</title>
 </head>
-
 <body>
-  <!-- サイトのメインタイトル -->
+  <!-- メインタイトル -->
   <h1>beatmania IIDX DP Event Navigator</h1>
 
-  <!-- 開催中のイベント一覧を示す見出し（英語表記） -->
-  <h2 class="section-title">Current Events</h2>
+  <!-- イベント一覧挿入用コンテナ -->
+  <div id="event-list" class="event-list"></div>
 
-  <!-- イベント一覧を表示するためのコンテナ。JavaScriptで動的に内容を挿入 -->
-  <div class="event-list" id="event-list"></div>
+  <!-- 登録フォーム誘導ボタン -->
+  <div class="register-link">
+    <a href="https://forms.gle/wPuDp7AbU16ymNX56" class="btn-register" target="_blank" rel="noopener noreferrer">
+      Register for Event
+    </a>
+  </div>
 
-  <!-- 外部JavaScriptファイルを読み込み。ページの動的処理やイベントデータの表示を担当 -->
-  <script src="main.js"></script>
-
-<div class="event-list" id="event-list"></div>
-
-<!-- 登録フォームへの誘導リンク -->
-<div class="register-link" style="margin: 1.5em 0; text-align: center;">
-  <a href="https://forms.gle/wPuDp7AbU16ymNX56" class="btn-register" style="
-    display: inline-block;
-    padding: 1.2em 2.4em;       /* 余白を倍に */
-    background-color: #0057b7;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;         /* 角丸を大きめに */
-    font-weight: 700;
-    font-size: 1.5rem;          /* フォントサイズ大きく */
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 影で浮き立たせる */
-  " onmouseover="this.style.backgroundColor='#003f7d'" onmouseout="this.style.backgroundColor='#0057b7'">
-    Register for Event
-  </a>
-</div>
-  <!-- ページ下部のフッター -->
+  <!-- フッター：注意事項・問い合わせ先 -->
   <footer>
     <p>
       ⚠ 注意事項
       このページの情報は手動で更新しております。記載内容には細心の注意を払っておりますが、実際のイベント内容と異なる場合がございます。必ず公式リンクにて詳細をご確認ください。
       内容に誤りや未掲載のイベント情報がございましたら、<a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> までご連絡いただけますと幸いです。
-
+  
       ⚠ Disclaimer
       All information on this page is updated manually. While every effort has been made to ensure accuracy, discrepancies with actual event details may occur. Please verify details through official links.
       If you notice any mistakes or missing events, please contact <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a>.
-
+  
       ⚠ 안내 사항
       이 페이지의 정보는 수동으로 업데이트되고 있습니다. 가능한 정확성을 기하고 있으나 실제 이벤트 내용과 차이가 있을 수 있습니다. 반드시 공식 링크를 통해 확인하시기 바랍니다.
       오류나 누락된 이벤트가 있을 경우 <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> 에 연락 부탁드립니다。
     </p>
   </footer>
+  
+  <!-- JSモジュール読み込み -->
+  <script type="module" src="js/main.js"></script>
 </body>
-
 </html>
