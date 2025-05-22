@@ -1,7 +1,7 @@
 // Google Apps ScriptのAPIエンドポイントURL
 // このURLにGETリクエストを送り、イベントデータをJSON形式で取得する
 const apiUrl =
-  'https://script.google.com/macros/s/AKfycbxk8j0rNhcpkstS_MZM9q2b_j4W1v0bJyKXU5KtS8zd1Jv1wrLm5VoSaydZsOWOxOOnbQ/exec';
+  'https://script.google.com/macros/s/AKfycbwXdi6579nNuECiGZt2Foe3XQV-VpsmkATh8_nGrikbNNFr0pvR8kxoUIhFNLzUlTHrog/exec';
 
 /**
  * APIからイベントデータを非同期取得する
