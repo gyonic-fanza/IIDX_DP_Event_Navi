@@ -1,177 +1,170 @@
-/* ================================
+/* ===================================
    基本スタイル
-   ================================ */
-   body {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem 1rem 4rem;
-    font-family: "Noto Sans JP", sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+=================================== */
+body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+  font-family: "Noto Sans JP", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* ===================================
+   タイポグラフィ
+=================================== */
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.3rem;
+}
+
+h2.event-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #0078d7;
+}
+
+a {
+  color: #0078d7;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.event-label {
+  font-weight: 600;
+  color: #444;
+  margin-right: 0.3rem;
+}
+
+.event-detail {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0.2rem 0;
+  color: #555;
+}
+
+/* ===================================
+   コンテナ
+=================================== */
+.event-list {
+  margin-top: 1.5rem;
+}
+
+.event-item {
+  background-color: #fff;
+  border-left: 6px solid #005a9e;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ===================================
+   見出し・区切り
+=================================== */
+hr {
+  border: 1px solid #444;
+}
+
+/* ===================================
+   状態・強調クラス
+=================================== */
+.event-remaining {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d9534f;
+  margin-bottom: 0.5rem;
+}
+
+.urgent-event,
+.new-event {
+  color: red;
+  font-weight: bold;
+}
+
+.gray-background {
+  background-color: #d0d0d0;
+}
+
+/* ===================================
+   登録リンク・ボタン
+=================================== */
+.register-link {
+  text-align: center;
+  margin: 1.5em 0;
+}
+
+.btn-register {
+  display: inline-block;
+  padding: 1.2em 2.4em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background-color: #0057b7;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-register:hover {
+  background-color: #003f7d;
+}
+
+/* ===================================
+   ツールチップ
+=================================== */
+.tooltip {
+  position: absolute;
+  display: none;
+  max-width: 300px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+   折りたたみ（未使用）
+=================================== */
+.event-details-collapsed {
+  display: none;
+}
+
+/* ===================================
+   フッター
+=================================== */
+footer {
+  background-color: #fff8e1;
+  border-top: 2px solid #444;
+  padding: 1.5rem 1rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #444;
+  white-space: pre-wrap;
+  font-family: "Noto Sans JP", sans-serif;
+  user-select: text;
+}
+footer p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ===================================
+   レスポンシブ対応
+=================================== */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem 0.8rem 3rem;
   }
-  
-  /* ================================
-     タイトル (h1)
-     ================================ */
-  h1 {
-    font-weight: 700;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 2px solid #444;
-    padding-bottom: 0.3rem;
-  }
-  
-  /* ================================
-     水平線
-     ================================ */
-  hr {
-    border: 1px solid #444;
-  }
-  
-  /* ================================
-     イベント一覧コンテナ
-     ================================ */
-  .event-list {
-    margin-top: 1.5rem;
-  }
-  
-  /* ================================
-     個別イベントコンテナ
-     ================================ */
-  .event-item {
-    background-color: #fff;
-    border-left: 6px solid #005a9e;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* ================================
-     イベントタイトル (h2)
-     ================================ */
-  .event-title {
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
-    color: #0078d7;
-  }
-  
-  /* ================================
-     イベント詳細テキスト
-     ================================ */
-  .event-detail {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0.2rem 0;
-    color: #555;
-  }
-  
-  /* ================================
-     詳細情報ラベル
-     ================================ */
-  .event-label {
-    font-weight: 600;
-    color: #444;
-    margin-right: 0.3rem;
-  }
-  
-  /* ================================
-     折りたたみ時の非表示（未使用）
-     ================================ */
-  .event-details-collapsed {
-    display: none;
-  }
-  
-  /* ================================
-     リンクスタイル
-     ================================ */
-  a {
-    color: #0078d7;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* ================================
-     残り日数強調
-     ================================ */
-  .event-remaining {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #d9534f;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* ================================
-     フッター
-     ================================ */
-  footer {
-    background-color: #fff8e1;
-    border-top: 2px solid #444;
-    padding: 1.5rem 1rem;
-    margin-top: 3rem;
-    font-size: 0.9rem;
-    color: #444;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    font-family: "Noto Sans JP", sans-serif;
-    user-select: text;
-  }
-  footer p {
-    margin: 0;
-    white-space: pre-wrap;
-  }
-  
-  /* ================================
-     レスポンシブ調整 (画面幅600px以下)
-     ================================ */
-  @media (max-width: 600px) {
-    body {
-      padding: 1rem 0.8rem 3rem;
-    }
-  }
-  
-  /* ================================
-     特殊クラス
-     ================================ */
-  .urgent-event {
-    color: red;
-    font-weight: bold;
-  }
-  .gray-background {
-    background-color: #d0d0d0;
-  }
-  .register-link {
-    margin: 1.5em 0;
-    text-align: center;
-  }
-  .btn-register {
-    display: inline-block;
-    padding: 1.2em 2.4em;
-    background-color: #0057b7;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.5rem;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  }
-  .btn-register:hover {
-    background-color: #003f7d;
-  }
-  .tooltip {
-    position: absolute;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    max-width: 300px;
-    pointer-events: none; /* ツールチップ自体はマウスイベント無効 */
-    display: none;
-    z-index: 1000;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
+}
