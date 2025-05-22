@@ -168,3 +168,76 @@ footer p {
     padding: 1rem 0.8rem 3rem;
   }
 }
+/* 更新履歴セクション全体 */
+#update-history {
+  background-color: #f9f9f9; /* 薄いグレーでフッター前にさりげなく区切り */
+/*  border: 1px solid #ddd;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0 3rem 0;
+  border-radius: 6px;*/
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333;
+}
+
+/* 更新履歴タイトル */
+#update-history h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #666;
+  padding-bottom: 0.25rem;
+  color: #222;
+}
+
+#update-history ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#update-history > ul > li {
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: #222;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.4rem;
+}
+
+#update-history ul ul {
+  list-style:circle;
+  padding-left: 1.5rem;
+  margin-top: 0.3rem;
+  font-weight: 400;
+  color: #444;
+}
+
+#update-history ul ul li {
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+
+/* 最後の項目の余白調整 */
+#update-history li:last-child {
+  margin-bottom: 0;
+}
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5em 0.75em;
+  border-radius: 50%;
+  font-size: 1.25em;
+  z-index: 1000;
+  opacity: 0.7;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+.back-to-top:hover {
+  opacity: 1;
+  background-color: #555;
+  text-decoration: none;
+}
