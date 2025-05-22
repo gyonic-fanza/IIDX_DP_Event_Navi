@@ -2,28 +2,42 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <!-- サイトの概要（検索エンジン用） -->
   <meta name="description" content="beatmania IIDXのDPイベント情報をまとめた非公式ナビゲーションサイト" />
+  <!-- モバイル対応のためのビューポート設定 -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- 日本語フォントの読み込み -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet" />
+  <!-- 外部CSSの読み込み -->
   <link rel="stylesheet" href="style.css" />
   <title>beatmania IIDX DP Event Navigator</title>
 </head>
+
 <body>
-  <header>
+  <!-- サイトのタイトル表示 -->
+  <header class="toc">
     <h1>beatmania IIDX DP Event Navigator</h1>
   </header>
 
   <main>
-    <section id="event-list" class="event-list" aria-label="Event List"></section>
+    <!-- イベント一覧表示セクション（JavaScriptで動的に埋め込まれる） -->
+    <section id="event-list" class="event-list">
+      <h2 class="visually-hidden">Current Events</h2>
+      <!-- イベント一覧がここに表示される -->
+    </section>
 
+    <!-- イベント登録フォームへのリンク -->
     <div class="register-link">
       <a href="https://forms.gle/wPuDp7AbU16ymNX56" class="btn-register" target="_blank" rel="noopener noreferrer">
         Register for Event
       </a>
     </div>
 
-    <section id="update-history" class="update-history" aria-label="Update History">
-      <h2>Update History</h2>
+    <!--
+      更新履歴セクション（必要に応じて有効化）
+      サイトの更新内容を時系列で記録し、利用者に透明性を提供します。
+    <section id="update-history" class="update-history">
+      <h2>更新履歴</h2>
       <ul>
         <li>
           <time datetime="2025-05-22">2025-05-22</time>
@@ -47,29 +61,41 @@
         </li>
       </ul>
     </section>
+    -->
   </main>
 
   <footer>
-    <p>
-      ⚠ 注意事項  
-      当ページは一部機能にJavaScriptを使用しています。ご利用の際はJavaScriptを有効にしてください。  
-      掲載内容は手動で更新しており、実際のイベントと異なる場合があります。必ず公式情報をご確認ください。  
-      内容に誤りや未掲載の情報がございましたら、<a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> までご連絡ください。
+    <!-- 注意事項および免責事項（日本語・英語・韓国語） -->
+    <section class="disclaimer">
+      <p>
+        <!-- 日本語 -->
+        <strong>⚠ 注意事項</strong>
+        当ページは一部機能にJavaScriptを使用しています。ご利用の際はJavaScriptを有効にしてください。
+        掲載内容は手動で更新しており、実際のイベントと異なる場合があります。必ず公式情報をご確認ください。
+        内容に誤りや未掲載の情報がございましたら、
+        <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> までご連絡ください。
 
-      ⚠ Disclaimer  
-      This page uses JavaScript for certain features. Please ensure JavaScript is enabled.  
-      Information is updated manually and may differ from official details. Always refer to official sources.  
-      If you find errors or missing entries, contact <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a>.
+        <!-- 英語 -->
+        <strong>⚠ Disclaimer</strong>
+        This page uses JavaScript for certain features. Please ensure JavaScript is enabled.
+        Information is updated manually and may differ from official details. Always refer to official sources.
+        If you find errors or missing entries, contact
+        <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a>.
 
-      ⚠ 안내 사항  
-      본 페이지는 일부 기능에 JavaScript를 사용합니다. 사용 시 JavaScript가 활성화되어 있는지 확인해 주세요.  
-      정보는 수동으로 갱신되며 실제 이벤트와 다를 수 있습니다. 반드시 공식 정보를 확인해 주세요.  
-      오류나 누락된 내용은 <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> 에게 알려주시기 바랍니다。
-    </p>
+        <!-- 韓国語 -->
+        <strong>⚠ 안내 사항</strong>
+        본 페이지는 일부 기능에 JavaScript를 사용합니다. 사용 시 JavaScript가 활성화되어 있는지 확인해 주세요.
+        정보는 수동으로 갱신되며 실제 이벤트와 다를 수 있습니다. 반드시 공식 정보를 확인해 주세요.
+        오류나 누락된 내용은
+        <a href="https://x.com/GYONIC" target="_blank" rel="noopener noreferrer">GYONIC (X : @GYONIC)</a> 에게 알려주시기 바랍니다.
+      </p>
+    </section>
   </footer>
 
-  <a href="#" class="back-to-top" aria-label="Back to top">⬆</a>
+  <!-- ページ最上部へ戻るボタン -->
+  <a href="#" class="back-to-top" aria-label="ページの先頭に戻る">⬆</a>
 
+  <!-- メインJavaScriptファイルの読み込み -->
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
