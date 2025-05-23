@@ -1,6 +1,6 @@
-/* ===================================
-   基本スタイル
-=================================== */
+/* ===============================
+   レイアウト・基本スタイル
+=============================== */
 body {
   max-width: 900px;
   margin: 0 auto;
@@ -10,15 +10,21 @@ body {
   color: #333;
 }
 
-/* ===================================
+@media (max-width: 600px) {
+  body {
+    padding: 1rem 0.8rem 3rem;
+  }
+}
+
+/* ===============================
    タイポグラフィ
-=================================== */
+=============================== */
 h1 {
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  border-bottom: 2px solid #444;
   padding-bottom: 0.3rem;
+  border-bottom: 2px solid #444;
 }
 
 h2.event-title {
@@ -50,33 +56,48 @@ a:hover {
   color: #555;
 }
 
-
-/* ===================================
-   区切り・装飾
-=================================== */
-hr {
-  border: 1px solid #444;
+/* ===============================
+   イベント表示要素
+=============================== */
+.event-details {
+  font-size: 1.1em;
+  background-color: #fff;
+  border-left: 6px solid #005a9e;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* ===================================
-   状態・強調クラス
-=================================== */
+.event-details-collapsed {
+  display: none;
+}
+
+/* ===============================
+   状態・強調表示
+=============================== */
 .event-remaining {
+  font-size: 1.5em;
   font-weight: bold;
   color: #d9534f;
-  /* margin-bottom: 0.5rem; */
 }
 
 .urgent-event,
 .new-event {
-  color: red;
   font-weight: bold;
+  color: red;
 }
 
+/* ===============================
+   区切り・装飾
+=============================== */
+hr {
+  border: 1px solid #444;
+}
 
-/* ===================================
-   登録リンク・ボタン
-=================================== */
+/* ===============================
+   ボタン・リンク系
+=============================== */
 .register-link {
   text-align: center;
   margin: 1.5em 0;
@@ -91,17 +112,37 @@ hr {
   color: #fff;
   text-decoration: none;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 .btn-register:hover {
   background-color: #003f7d;
 }
 
-/* ===================================
+a.toggle-link {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 0.5em 1em;
+  font-size: 0.95rem;
+  font-weight: bold;
+  background-color: #007acc;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+a.toggle-link:hover {
+  background-color: #005fa3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
    ツールチップ
-=================================== */
+=============================== */
 .tooltip {
   position: absolute;
   display: none;
@@ -116,16 +157,9 @@ hr {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* ===================================
-   折りたたみ（未使用）
-=================================== */
-.event-details-collapsed {
-  display: none;
-}
-
-/* ===================================
+/* ===============================
    フッター
-=================================== */
+=============================== */
 footer {
   background-color: #fff8e1;
   border-top: 2px solid #444;
@@ -135,21 +169,20 @@ footer {
   line-height: 1.5;
   color: #444;
   white-space: pre-wrap;
-  font-family: "Noto Sans JP", sans-serif;
   user-select: text;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 footer p {
   margin: 0;
-  white-space: pre-wrap;
 }
 
-/* ===================================
-   更新履歴セクション
-=================================== */
+/* ===============================
+   更新履歴
+=============================== */
 #update-history {
   background-color: #f9f9f9;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   color: #333;
 }
 
@@ -157,8 +190,8 @@ footer p {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #666;
   padding-bottom: 0.25rem;
+  border-bottom: 2px solid #666;
   color: #222;
 }
 
@@ -171,9 +204,9 @@ footer p {
 #update-history > ul > li {
   font-weight: 700;
   margin-bottom: 0.8rem;
-  color: #222;
-  border-bottom: 1px solid #ccc;
   padding-bottom: 0.4rem;
+  border-bottom: 1px solid #ccc;
+  color: #222;
 }
 
 #update-history ul ul {
@@ -193,89 +226,61 @@ footer p {
   margin-bottom: 0;
 }
 
-/* ===================================
+/* ===============================
    トップへ戻るボタン
-=================================== */
+=============================== */
 .back-to-top {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  font-size: 1.25em;
+  padding: 0.5em 0.75em;
   background-color: #333;
   color: #fff;
-  text-decoration: none;
-  padding: 0.5em 0.75em;
   border-radius: 50%;
-  font-size: 1.25em;
-  z-index: 1000;
+  text-decoration: none;
   opacity: 0.7;
+  z-index: 1000;
   transition: opacity 0.3s, background-color 0.3s;
 }
 
 .back-to-top:hover {
   opacity: 1;
-  text-decoration: none;
   background-color: #555;
+  text-decoration: none;
 }
 
-/* ===================================
-   目次（TOC）
-=================================== */
-.toc {
-  position: sticky;
-  top: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  padding-bottom: 10px;
-}
-
-/* ===================================
-   レスポンシブ対応
-=================================== */
-@media (max-width: 600px) {
-  body {
-    padding: 1rem 0.8rem 3rem;
-  }
-}
-.event-details {
-  font-size: 1.1em;
-  background-color: #fff;
-  border-left: 6px solid #005a9e;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.event-item-inner {
-  padding: 0.5em 1em;
-}
+/* ===============================
+   その他スタイル
+=============================== */
 details.gray-background {
   background-color: #d0d0d0;
 }
-  /* font-size: 1.5rem; */
-/* ===================================
-   折りたたみリンク（toggle-link ボタン風）
-=================================== */
-a.toggle-link {
-  display: inline-block;
-  margin: 10px 0;
-  padding: 0.5em 1em;
-  background-color: #007acc;
-  color: #fff;
+
+.highlight-number {
+  font-size: 1.5em;
   font-weight: bold;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 6px;
-  text-decoration: none;
+}
+
+.event-summary {
+  font-weight: bold;
+  font-size: 1.1em;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 0.5em 0;
 }
 
-a.toggle-link:hover {
-  background-color: #005fa3;
-  text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.event-summary-title {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
+.event-organizer {
+  font-weight: normal;
+  font-size: 0.75em;
+  color: #666;
+}
+
+.event-index,
+.event-index a {
+  font-size: 0.85em;
+}

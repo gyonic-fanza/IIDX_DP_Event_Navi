@@ -3,6 +3,10 @@ import { setFallbackImage } from './utils.js';
 import { createEventItem, createEventIndex, createEventIndexLink } from './renderHelpers.js';
 import { toggleAllDetails } from './toggleHelpers.js';
 
+/**
+ * イベントカテゴリの定義
+ * @type {Array<{key: string, title: string}>}
+ */
 const CATEGORIES = [
   { key: 'ended', title: '✅ Ended' },
   { key: 'week1', title: '⏳ Within 1 Week' },
@@ -11,39 +15,39 @@ const CATEGORIES = [
 ];
 
 /**
- * イベントオブジェクトの状態と残り日数から
- * 適切なカテゴリキーを判定する関数
+ * イベントオブジェクトの状態と残り日数からカテゴリを判定する
  * 
- * @param {Object} event - イベント情報
- * @returns {string} カテゴリキー ('ended', 'week1', 'overWeek', 'upcoming')
+ * @param {{ status: boolean|string, date_remain: number|string }} event - イベント情報
+ * @returns {string} カテゴリキー ('ended' | 'week1' | 'overWeek' | 'upcoming')
  */
 function getCategory(event) {
-  if (event.status === false || event.status === 'false') return 'upcoming';
+  if (event.status === false || event.status === 'false') {
+    return 'upcoming';
+  }
 
   const remain = Number(event.date_remain);
-  if (isNaN(remain)) return 'overWeek';  // 数値変換できなければ「1週間超過」扱い
-  if (remain < 0) return 'ended';        // 残り日数がマイナスなら終了済み
-  if (remain <= 7) return 'week1';       // 7日以内なら1週間以内カテゴリ
-  return 'overWeek';                     // それ以外は1週間超過カテゴリ
+  if (isNaN(remain)) return 'overWeek';
+  if (remain < 0) return 'ended';
+  if (remain <= 7) return 'week1';
+  return 'overWeek';
 }
 
 /**
- * カテゴリタイトル用のDOM要素を作成する関数
+ * カテゴリタイトルの要素を生成する
  * 
  * @param {string} title - カテゴリの表示タイトル
- * @returns {HTMLElement} カテゴリタイトルの<div>要素
+ * @returns {HTMLDivElement}
  */
 function createCategoryTitleElement(title) {
   const div = document.createElement('div');
-  div.innerHTML = `<strong>${title} || </strong>`;
+  div.innerHTML = `<strong>${title}</strong> | `;
   return div;
 }
 
 /**
- * 「Toggle All」リンクを生成し、クリック時に全イベント詳細の
- * 展開・折りたたみを切り替えるイベントリスナーを設定する関数
+ * 「Toggle All」リンクを生成する
  * 
- * @returns {HTMLAnchorElement} トグルリンク要素
+ * @returns {HTMLAnchorElement}
  */
 function createToggleAllLink() {
   const link = document.createElement('a');
@@ -58,10 +62,9 @@ function createToggleAllLink() {
 }
 
 /**
- * CATEGORIES配列を元にカテゴリごとの初期情報を保持するオブジェクトを生成する関数
- * 各カテゴリにはタイトルコンテナ、イベント数カウント、イベント配列を持たせる
+ * カテゴリごとの初期オブジェクトを生成
  * 
- * @returns {Object} カテゴリキーをプロパティに持つ初期カテゴリオブジェクト
+ * @returns {Object<string, {container: HTMLDivElement, count: number, events: Array}>}
  */
 function initializeCategoryContainers() {
   return CATEGORIES.reduce((acc, { key, title }) => {
@@ -75,63 +78,57 @@ function initializeCategoryContainers() {
 }
 
 /**
- * メイン関数。渡されたイベントリストをソートし、
- * カテゴリ別に分類、DOMに描画する。
- * イベントのインデックスナビ、トグルリンクも併せて生成し、
- * 「ended」「upcoming」カテゴリのイベントはグレー背景に設定する。
+ * イベント一覧をカテゴリ分けして描画する
  * 
- * @param {Array} events - 描画対象のイベント配列
+ * @param {Array<Object>} events - イベントオブジェクトの配列
  * @param {HTMLElement} container - 描画先のDOM要素
  */
 export function renderEvents(events, container) {
-  // date_remainを基準に昇順ソート（数値化できないものは末尾へ）
+  // 残り日数を昇順ソート。未定義は末尾へ
   events.sort((a, b) => {
-    const aVal = Number(a.date_remain);
-    const bVal = Number(b.date_remain);
-    return (isNaN(aVal) ? Infinity : aVal) - (isNaN(bVal) ? Infinity : bVal);
+    const aRemain = Number(a.date_remain);
+    const bRemain = Number(b.date_remain);
+    return (isNaN(aRemain) ? Infinity : aRemain) - (isNaN(bRemain) ? Infinity : bRemain);
   });
 
-  // コンテナ初期化
+  // 初期化
   container.innerHTML = '';
   container.appendChild(document.createElement('hr'));
 
-  // インデックスナビ生成＆先頭に配置
   const indexNav = createEventIndex();
-  container.prepend(indexNav);
   const indexWrapper = indexNav.firstElementChild;
+  container.prepend(indexNav);
 
-  // カテゴリごとの初期化
-  const categories = initializeCategoryContainers();
-
-  // 全詳細表示・非表示切替リンクを作成し、インデックスの次に挿入
   const toggleLink = createToggleAllLink();
   container.insertBefore(toggleLink, indexNav.nextSibling);
 
-  // カテゴリタイトルをインデックスナビに追加
+  const categories = initializeCategoryContainers();
   Object.values(categories).forEach(({ container }) => indexWrapper.appendChild(container));
 
-  // イベントをカテゴリ別に分類しつつ、インデックスリンクも生成
+  // イベントをカテゴリ分け
   events.forEach((event, i) => {
     const id = `event-${i}`;
-    const categoryKey = getCategory(event);
-    const category = categories[categoryKey];
+    const key = getCategory(event);
+    const category = categories[key];
+
     createEventIndexLink(category.container, event, id, category.count);
     category.count++;
     category.events.push({ event, id });
   });
 
-  // イベントが0件のカテゴリタイトルは非表示にする
+  // 空カテゴリの非表示設定
   Object.values(categories).forEach(({ container, count }) => {
     container.style.display = count === 0 ? 'none' : '';
   });
 
-  // カテゴリ順にイベントアイテムを作成し、一括でDOMに追加
+  // イベントをカテゴリごとに描画
   const fragment = document.createDocumentFragment();
   CATEGORIES.forEach(({ key }) => {
     categories[key].events.forEach(({ event, id }) => {
       const item = createEventItem(event, id, setFallbackImage, generateDetails);
-      // 終了済みと今後のカテゴリはグレー背景で区別
-      if (key === 'ended' || key === 'upcoming') item.classList.add('gray-background');
+      if (key === 'ended' || key === 'upcoming') {
+        item.classList.add('gray-background');
+      }
       fragment.appendChild(item);
     });
   });
