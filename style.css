@@ -1,5 +1,5 @@
 /* ===============================
-   レイアウト・基本スタイル
+   共通レイアウト・ベーススタイル
 =============================== */
 body {
   max-width: 900px;
@@ -20,7 +20,7 @@ body {
    タイポグラフィ
 =============================== */
 h1 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   padding-bottom: 0.3rem;
@@ -43,6 +43,13 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ボタンや戻るボタンなど、下線不要なリンク */
+a.btn-register,
+a.toggle-link,
+a.back-to-top {
+  text-decoration: none !important;
+}
+
 .event-label {
   font-weight: 600;
   color: #444;
@@ -57,7 +64,7 @@ a:hover {
 }
 
 /* ===============================
-   イベント表示要素
+   イベント表示エリア
 =============================== */
 .event-details {
   font-size: 1.1em;
@@ -87,6 +94,16 @@ a:hover {
   font-weight: bold;
   color: red;
 }
+@keyframes slow-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.urgent-event {
+  font-weight: bold;
+  color: red;
+  animation: slow-blink 1s ease-in-out infinite;
+}
 
 /* ===============================
    区切り・装飾
@@ -96,7 +113,7 @@ hr {
 }
 
 /* ===============================
-   ボタン・リンク系
+   ボタン・リンク
 =============================== */
 .register-link {
   text-align: center;
@@ -110,7 +127,6 @@ hr {
   font-weight: 700;
   background-color: #0057b7;
   color: #fff;
-  text-decoration: none;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
@@ -129,7 +145,6 @@ a.toggle-link {
   background-color: #007acc;
   color: #fff;
   border-radius: 6px;
-  text-decoration: none;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease, box-shadow 0.2s ease;
@@ -251,7 +266,7 @@ footer p {
 }
 
 /* ===============================
-   その他スタイル
+   その他
 =============================== */
 details.gray-background {
   background-color: #d0d0d0;
@@ -262,16 +277,12 @@ details.gray-background {
   font-weight: bold;
 }
 
-.event-summary {
+.event-summary,
+.event-summary-title {
   font-weight: bold;
   font-size: 1.1em;
   cursor: pointer;
   padding: 0.5em 0;
-}
-
-.event-summary-title {
-  font-weight: bold;
-  font-size: 1.1em;
 }
 
 .event-organizer {
@@ -282,5 +293,12 @@ details.gray-background {
 
 .event-index,
 .event-index a {
-  font-size: 0.85em;
+  font-size: 1em;
+}
+
+.event-checkbox {
+  transform: scale(1.6);
+  margin-right: 0.75em;
+  cursor: pointer;
+  vertical-align: middle;
 }
