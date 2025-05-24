@@ -107,7 +107,7 @@ export function renderEvents(events, container) {
 
   // イベントをカテゴリ分け
   events.forEach((event, i) => {
-    const id = `event-${i}`;
+    const id = `event-${event.event_no}`;
     const key = getCategory(event);
     const category = categories[key];
 
