@@ -83,11 +83,10 @@ function buildRemainText(event) {
   const div = document.createElement('div');
   div.className = 'event-remaining';
 
-  const { date_remain: remain, status } = event;
+  const remain = Number(event.date_remain);
 
-  if (status === false || status === 'false') {
-    div.textContent = 'Upcoming';
-  } else if (typeof remain === 'number' && remain !== Infinity) {
+  // date_remain が有効な数値ならそれを優先して判定
+  if (!isNaN(remain)) {
     const days = Math.floor(remain);
     if (days > 0) {
       const span = document.createElement('span');
@@ -100,6 +99,11 @@ function buildRemainText(event) {
     } else {
       div.textContent = 'Ended';
       div.classList.add('ended');
+    }
+  } else {
+    // 数値で判定できない場合のみ status を参照
+    if (event.status === false || event.status === 'false') {
+      div.textContent = 'Upcoming';
     }
   }
 

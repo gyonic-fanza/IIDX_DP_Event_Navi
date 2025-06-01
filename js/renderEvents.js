@@ -8,10 +8,10 @@ import { toggleAllDetails } from './toggleHelpers.js';
  * @type {Array<{key: string, title: string}>}
  */
 const CATEGORIES = [
-  { key: 'ended', title: '✅ Ended' },
   { key: 'week1', title: '⏳ Within 1 Week' },
   { key: 'overWeek', title: '📅 Over 1 Week' },
   { key: 'upcoming', title: '🚀 Upcoming' },
+  { key: 'ended', title: '✅ Ended' },  // ← 最後に移動
 ];
 
 /**
@@ -21,14 +21,19 @@ const CATEGORIES = [
  * @returns {string} カテゴリキー ('ended' | 'week1' | 'overWeek' | 'upcoming')
  */
 function getCategory(event) {
+  const remain = Number(event.date_remain);
+
+  if (!isNaN(remain)) {
+    if (remain < 0) return 'ended';
+    if (remain <= 7) return 'week1';
+    return 'overWeek';
+  }
+
+  // date_remain が不明な場合に限り status を参照
   if (event.status === false || event.status === 'false') {
     return 'upcoming';
   }
 
-  const remain = Number(event.date_remain);
-  if (isNaN(remain)) return 'overWeek';
-  if (remain < 0) return 'ended';
-  if (remain <= 7) return 'week1';
   return 'overWeek';
 }
 
@@ -84,28 +89,33 @@ function initializeCategoryContainers() {
  * @param {HTMLElement} container - 描画先のDOM要素
  */
 export function renderEvents(events, container) {
-  // 残り日数を昇順ソート。未定義は末尾へ
+  // ソート
   events.sort((a, b) => {
     const aRemain = Number(a.date_remain);
     const bRemain = Number(b.date_remain);
     return (isNaN(aRemain) ? Infinity : aRemain) - (isNaN(bRemain) ? Infinity : bRemain);
   });
 
-  // 初期化
   container.innerHTML = '';
   container.appendChild(document.createElement('hr'));
 
-  const indexNav = createEventIndex();
-  const indexWrapper = indexNav.firstElementChild;
-  container.prepend(indexNav);
-
+  // 目次とトグルを用意
   const toggleLink = createToggleAllLink();
-  container.insertBefore(toggleLink, indexNav.nextSibling);
+  const { wrapper: indexDetails, nav: indexNav } = createEventIndex();
 
+  // コンテナを用意して2つ並べる
+  const indexContainer = document.createElement('div');
+  indexContainer.className = 'event-index-container';
+  indexContainer.appendChild(indexDetails);
+  indexContainer.appendChild(toggleLink);
+
+  container.prepend(indexContainer);
+
+  // カテゴリ準備
   const categories = initializeCategoryContainers();
-  Object.values(categories).forEach(({ container }) => indexWrapper.appendChild(container));
+  Object.values(categories).forEach(({ container }) => indexNav.appendChild(container));
 
-  // イベントをカテゴリ分け
+  // カテゴリ分け
   events.forEach((event, i) => {
     const id = `event-${event.event_no}`;
     const key = getCategory(event);
@@ -116,14 +126,15 @@ export function renderEvents(events, container) {
     category.events.push({ event, id });
   });
 
-  // 空カテゴリの非表示設定
+  // 空の非表示
   Object.values(categories).forEach(({ container, count }) => {
     container.style.display = count === 0 ? 'none' : '';
   });
 
-  // イベントをカテゴリごとに描画
+  // 描画（Ended を末尾）
   const fragment = document.createDocumentFragment();
-  CATEGORIES.forEach(({ key }) => {
+  const categoryOrder = ['week1', 'overWeek', 'upcoming', 'ended'];
+  categoryOrder.forEach(key => {
     categories[key].events.forEach(({ event, id }) => {
       const item = createEventItem(event, id, setFallbackImage, generateDetails);
       if (key === 'ended' || key === 'upcoming') {

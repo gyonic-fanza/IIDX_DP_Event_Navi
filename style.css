@@ -1,3 +1,4 @@
+
 /* ===============================
    共通レイアウト・ベーススタイル
 =============================== */
@@ -8,6 +9,7 @@ body {
   font-family: "Noto Sans JP", sans-serif;
   background-color: #f9f9f9;
   color: #333;
+  letter-spacing: 0.03em;
 }
 
 @media (max-width: 600px) {
@@ -96,13 +98,11 @@ a.back-to-top {
 }
 @keyframes slow-blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  50% { opacity: 0.5; }
 }
 
 .urgent-event {
-  font-weight: bold;
-  color: red;
-  animation: slow-blink 1s ease-in-out infinite;
+  animation: slow-blink 2s ease-in-out infinite;
 }
 
 /* ===============================
@@ -148,6 +148,7 @@ a.toggle-link {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
 
 a.toggle-link:hover {
@@ -177,7 +178,6 @@ a.toggle-link:hover {
 =============================== */
 footer {
   background-color: #fff8e1;
-  border-top: 2px solid #444;
   padding: 1.5rem 1rem;
   margin-top: 3rem;
   font-size: 0.9rem;
@@ -185,7 +185,6 @@ footer {
   color: #444;
   white-space: pre-wrap;
   user-select: text;
-  font-family: "Noto Sans JP", sans-serif;
 }
 
 footer p {
@@ -197,7 +196,6 @@ footer p {
 =============================== */
 #update-history {
   background-color: #f9f9f9;
-  font-family: "Noto Sans JP", sans-serif;
   color: #333;
 }
 
@@ -266,39 +264,51 @@ footer p {
 }
 
 /* ===============================
-   その他
+   Event Index 関連
 =============================== */
-details.gray-background {
-  background-color: #d0d0d0;
+.event-index-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffff99;
+  gap: 1rem;
+  flex-wrap: wrap;
+  /* margin-bottom: 1em; */
+  border-radius: 6px;
+  padding: 10pt;
 }
 
-.highlight-number {
-  font-size: 1.5em;
+details.event-index {
+  flex: 1;
+  min-width: 200px;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0.5em;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0.5em;
+}
+
+.event-index summary {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  padding: 0.25em 0;
+  list-style: none;
+  display: block;
+}
+
+.event-index summary:hover {
+  text-decoration: underline;
+}
+
+.gray-background {
+  background-color: #e0e0e0;
+}
+
+.event-summary-title{
   font-weight: bold;
 }
-
-.event-summary,
-.event-summary-title {
-  font-weight: bold;
-  font-size: 1.1em;
-  cursor: pointer;
-  padding: 0.5em 0;
-}
-
-.event-organizer {
-  font-weight: normal;
-  font-size: 0.75em;
-  color: #666;
-}
-
-.event-index,
-.event-index a {
-  font-size: 1em;
-}
-
-.event-checkbox {
-  transform: scale(1.6);
-  margin-right: 0.75em;
-  cursor: pointer;
-  vertical-align: middle;
+.event-organizer{
+  font-size: 0.8rem;
 }

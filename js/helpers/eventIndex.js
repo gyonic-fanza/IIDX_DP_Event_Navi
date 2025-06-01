@@ -13,11 +13,16 @@ import { isUrgent, isNew } from './eventStatus.js';
  */
 // renderHelpers.js の createEventIndex
 export function createEventIndex() {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'event-index';  // ← クラス名を追加
+  const details = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = '📑 Event Index';
+  summary.style.cursor = 'pointer';
+
   const nav = document.createElement('nav');
-  wrapper.appendChild(nav);
-  return wrapper;
+  details.appendChild(summary);
+  details.appendChild(nav);
+
+  return { wrapper: details, nav }; // ← nav を明示的に返す
 }
 
 /**
@@ -61,26 +66,29 @@ function buildEventLink(event, eventId) {
   link.href = `#${eventId}`;
   link.textContent = event.title;
 
-  // カスタム属性に詳細情報を格納（モーダルや詳細表示などに活用可能）
   link.dataset.details = JSON.stringify({
     date: event.date,
     venue: event.venue,
     description: event.description,
   });
 
-  // 緊急イベントの場合は⚠️マークで視覚的に警告
-  if (isUrgent(event)) {
-    const cautionMark = '⚠️';
-    link.textContent = `${cautionMark}${link.textContent}${cautionMark}`;
-    link.classList.add('urgent-event');
-  }
+  // 🔽 終了済みイベントには装飾を適用しない
+  const remain = Number(event.date_remain);
+  const isEnded = !isNaN(remain) && remain < 0;
 
-  // 新着イベントの場合は先頭に✨アイコンを付ける
-  if (isNew(event)) {
-    link.classList.add('new-event');
-    const newIcon = document.createElement('span');
-    newIcon.textContent = '✨';
-    link.prepend(newIcon);
+  if (!isEnded) {
+    if (isUrgent(event)) {
+      const cautionMark = '⚠️';
+      link.textContent = `${cautionMark}${link.textContent}${cautionMark}`;
+      link.classList.add('urgent-event');
+    }
+
+    if (isNew(event)) {
+      link.classList.add('new-event');
+      const newIcon = document.createElement('span');
+      newIcon.textContent = '✨';
+      link.prepend(newIcon);
+    }
   }
 
   return link;
