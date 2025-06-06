@@ -195,6 +195,24 @@ const chartLabels = {
       const diffStr = diff === 0 ? '+ 0' : (diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`);
       return [rank, `${ratePercent}%`, `(${label} ${diffStr})`];
     };
+const getClearBonus = lamp => {
+  switch (lamp) {
+    case 'FULLCOMBO': return 30;
+    case 'EX-HARD': return 25;
+    case 'HARD': return 20;
+    case 'CLEAR': return 15;
+    case 'EASY': return 10;
+    default: return 0;
+  }
+};
+const getLevelBonus = rank => {
+  switch (rank) {
+    case 'AAA': return 20;
+    case 'AA': return 15;
+    case 'A': return 10;
+    default: return 0;
+  }
+};
 
     const appendRow = (title, chart, cols, colIndex, mode) => {
       const tbody = document.querySelector(`#${mode}Table tbody`);
@@ -219,13 +237,21 @@ const chartDJPointsIndex = colIndex.djpts[chart];
 const totalDJPoints = parseFloat(cols[totalDJPointsIndex]);
 const chartDJPoints = chartDJPointsIndex !== -1 ? parseFloat(cols[chartDJPointsIndex]) : NaN;
 const isEvalChart = ['SPB','SPN','SPH','SPA','SPL','DPN','DPH','DPA','DPL'].includes(chart);
+let effectiveDJPoints = chartDJPoints;
+if (isNaN(effectiveDJPoints) && score > 0) {
+  const clearBonus = getClearBonus(lamp);
+  const levelBonus = getLevelBonus(rankRaw);
+  effectiveDJPoints = (score * (100 + clearBonus + levelBonus)) / 10000;
+  effectiveDJPoints = Math.round(effectiveDJPoints * 1000) / 1000;
+}
+
+const round3 = val => Math.round(val * 1000) / 1000;
 
 const isMatchingDJPoints =
   isEvalChart &&
-  !isNaN(chartDJPoints) &&
+  !isNaN(effectiveDJPoints) &&
   !isNaN(totalDJPoints) &&
-  Math.abs(chartDJPoints *1000- totalDJPoints*1000) < 0.01;
-// console.log(`${title} [${chart}]: chartDJ=${chartDJPoints}, totalDJ=${totalDJPoints}, match=${isMatchingDJPoints}`);
+  round3(effectiveDJPoints) === round3(totalDJPoints);
 
 const tr = document.createElement('tr');
 tr.innerHTML = `
