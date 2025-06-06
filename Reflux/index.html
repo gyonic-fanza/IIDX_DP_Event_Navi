@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>beatmania IIDX INFINITAS Score Viewer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>beatmania IIDX INFINITAS Score Viewer</h1>
+<div id="dogTag" class="dog-tag"></div>
+<div id="modeTabs">
+  <span class="tab-link" data-target="sp">SP</span>
+  <span class="tab-link active" data-target="dp">DP</span>
+</div>
+
+<div id="dpLevelLinks" class="level-filter">
+  <div id="dpView" class="mode-view">
+    <div id="dpLevelLinks" class="level-filter">
+      <span data-level="" class="level-link active">ALL</span>
+      <span data-level="1" class="level-link">☆1</span>
+      <span data-level="2" class="level-link">☆2</span>
+      <span data-level="3" class="level-link">☆3</span>
+      <span data-level="4" class="level-link">☆4</span>
+      <span data-level="5" class="level-link">☆5</span>
+      <span data-level="6" class="level-link">☆6</span>
+      <span data-level="7" class="level-link">☆7</span>
+      <span data-level="8" class="level-link">☆8</span>
+      <span data-level="9" class="level-link">☆9</span>
+      <span data-level="10" class="level-link">☆10</span>
+      <span data-level="11" class="level-link">☆11</span>
+      <span data-level="12" class="level-link">☆12</span>
+    </div>
+    <table id="dpTable">
+      <thead>
+        <tr>
+          <th data-index="0">☆</th>
+          <th data-index="1">Title</th>
+          <th data-index="2">Score</th>
+          <th data-index="4" colspan="3">Score Rate</th>
+          <th data-index="6">Clear Lamp</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="spView" class="mode-view hidden">
+    <div id="spLevelLinks" class="level-filter">
+      <span data-level="" class="level-link active">ALL</span>
+      <span data-level="1" class="level-link">☆1</span>
+      <span data-level="2" class="level-link">☆2</span>
+      <span data-level="3" class="level-link">☆3</span>
+      <span data-level="4" class="level-link">☆4</span>
+      <span data-level="5" class="level-link">☆5</span>
+      <span data-level="6" class="level-link">☆6</span>
+      <span data-level="7" class="level-link">☆7</span>
+      <span data-level="8" class="level-link">☆8</span>
+      <span data-level="9" class="level-link">☆9</span>
+      <span data-level="10" class="level-link">☆10</span>
+      <span data-level="11" class="level-link">☆11</span>
+      <span data-level="12" class="level-link">☆12</span>
+    </div>
+    <table id="spTable">
+      <thead>
+        <tr>
+          <th data-index="0">☆</th>
+          <th data-index="1">Title</th>
+          <th data-index="2">Score</th>
+          <th data-index="4" colspan="3">Score Rate</th>
+          <th data-index="6">Clear Lamp</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

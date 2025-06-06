@@ -1,0 +1,267 @@
+:root{  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  font-size: 0.8rem;       /* 小さくする */
+  background-color: #252830;
+  color: #cfd2da;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  /* --font-family-sans-serif: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: var(--font-family-sans-serif); */
+}
+table {
+  width: auto;
+  border-collapse: collapse;
+  border-color: #434857;
+  /* font-size: 14px; */
+}
+th {
+  padding: 4px 6px;
+  /* border-top: 1px solid #434857; */
+  border-bottom: 3px solid #434857;
+  border-left: none;
+  border-right: none;
+  text-align: left;
+}
+td {
+  padding: 4px 6px;
+  border-top: 1px solid #434857;
+  border-bottom: 1px solid #434857;
+  border-left: none;
+  border-right: none;
+  text-align: left;
+}
+table, th, td {
+  /* font-size: 13px;*/
+  line-height: 1.5;     /* 現在と同じ行間を維持 */
+}
+
+/* ランクに応じた色分け */
+td.rank.MAX,td.rank.AAA {
+  color: #21efef; /* 青 */
+}
+
+td.rank.AA {
+  color: #fba8c1; /* ディープスカイブルー */
+}
+
+td.rank.A {
+  color: #8df49b; /* ライムグリーン */
+}
+
+td.rank.B,td.rank.C,td.rank.D,td.rank.E,td.rank.F {
+  color: inherit; /* 黒 */
+}
+
+/* ランプに応じた色分け */
+/* 旧：背景色指定を削除またはコメントアウトして */
+td.lamp.FULLCOMBO {
+  color: #21efef; /* ライトイエロー */
+}
+
+td.lamp.EX-HARD {
+  color: #efef51; /* ライトレッド */
+}
+
+td.lamp.HARD {
+  color: #fba8c1; /* モカ */
+}
+
+td.lamp.CLEAR {
+  color: #f4cd8d; /* ライトグリーン */
+}
+
+td.lamp.ASSIST {
+  color: #ce8ef9; /* ライトシアン */
+}
+
+td.lamp.EASY {
+  color: #8df49b; /* ライトブルー */
+}
+
+td.lamp.FAILED {
+  color: inherit; /* ホワイトスモーク */
+}
+
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+  /* table, thead, tbody, th, td, tr {
+    display: block;
+  } */
+
+  /* th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  } */
+
+  td {
+    /* position: relative;
+    padding-left: 50%; */
+    text-align: left;
+  }
+
+  /* td::before {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+  } */
+
+  /* 各列のラベルを指定 */
+  /* td:nth-of-type(1)::before { content: "☆"; }
+  td:nth-of-type(2)::before { content: "Title"; }
+  td:nth-of-type(3)::before { content: "Score"; }
+  td:nth-of-type(4)::before { content: "Rank"; }
+  td:nth-of-type(5)::before { content: "Rate (%)"; }
+  td:nth-of-type(6)::before { content: "Score Detail"; }
+  td:nth-of-type(7)::before { content: "Clear Lamp"; } */
+}
+/* 譜面種別に応じた色分け */
+span.chart.NORMAL {
+  color: #21efef;
+}
+
+span.chart.HYPER {
+  color: #efef51;
+}
+
+span.chart.ANOTHER {
+  color: #fba8c1;
+}
+
+span.chart.LEGGENDARIA {
+  color: #ce8ef9;
+}
+/* style.css 末尾に追加 */
+th.active {
+  color: #1997c6;
+  font-weight: bold;
+  border-bottom:3px solid #1997c6 !important;
+}
+#levelFilter {
+  margin: 6px;
+  padding: 4px;
+  /* font-size: 13px; */
+  background-color: #333;
+  /* color: white; */
+  border: 1px solid #999;
+}
+.level-filter {
+  margin: 6px 0;
+  /* font-size: 14px; */
+}
+
+.level-link, .tab-link {
+  display: inline-block;
+  margin-right: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.level-link:hover, .tab-link:hover {
+  /* color: #fff; */
+  background-color: #444;
+}
+
+.level-link.active, .tab-link.active {
+  background-color: #1997c6;
+  border-bottom: 2px solid #1997c6;
+}
+
+.mode-view.hidden {
+  display: none;
+}
+/* 横並び用のラッパー */
+.mode-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mode-header .separator {
+  color: #999;
+}
+td.title-cell.djpoint-match {
+  color: #1997c6; /* ゴールド */
+  /* font-weight: bold; */
+}
+#dpTable td:nth-child(2),
+#dpTable th:nth-child(2),
+#spTable td:nth-child(2),
+#spTable th:nth-child(2) {
+  width: 500px;
+  max-width: 500px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+@media screen and (max-width: 768px) {
+  /* 既存の td スタイルに以下を追加 */
+  td:nth-of-type(2) {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+@media screen and (max-width: 768px) {
+  table, th, td {
+    font-size: 0.65rem; /* 小さめフォントで改行を防ぐ */
+  }
+
+  td {
+    white-space: nowrap;        /* 改行を防ぐ */
+    overflow: hidden;           /* はみ出しを隠す（必要なら） */
+    text-overflow: ellipsis;    /* 省略記号（...）も可能 */
+  }
+
+  #dpTable td:nth-child(2),
+  #dpTable th:nth-child(2),
+  #spTable td:nth-child(2),
+  #spTable th:nth-child(2) {
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+.dog-tag {
+  background-color: #2e3138;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 12px 0;
+  font-size: 0.8rem;
+  color: #ddd;
+  max-width: 320px;
+  line-height: 1.4;
+}
+.tag-line {
+  margin-bottom: 4px;
+}
+#dogTag {
+  margin-top: 0;
+  padding-top: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#dogTag h2,h3 {
+    font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#dogTag h2{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+#dogTag .id-line {
+  font-size: 0.8rem;
+  color: #ccc;
+  margin: 0;
+}
