@@ -9,22 +9,40 @@
       color: #ddd;
       font-family: monospace;
       padding: 1em;
-      overflow-x: auto;
+      margin: 0;
     }
+
     table {
       border-collapse: collapse;
       white-space: nowrap;
+      width: 100%;
+      table-layout: auto;
     }
+
     th, td {
       border: 1px solid #444;
       padding: 4px 8px;
       white-space: nowrap;
     }
+
     th {
       background-color: #333;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      cursor: pointer;
     }
+
     tr:nth-child(even) {
       background-color: #2a2a2a;
+    }
+
+    .sorted-asc::after {
+      content: ' ▲';
+    }
+
+    .sorted-desc::after {
+      content: ' ▼';
     }
   </style>
 </head>
@@ -33,20 +51,65 @@
   <table id="tsvTable"></table>
 
   <script>
+    let sortColumn = -1;
+    let sortDirection = 1;
+
     fetch('./tracker.tsv')
       .then(resp => resp.text())
       .then(text => {
         const table = document.getElementById('tsvTable');
-        const rows = text.trim().split('\n');
-        rows.forEach((line, i) => {
-          const tr = document.createElement('tr');
-          line.split('\t').forEach(cell => {
-            const el = document.createElement(i === 0 ? 'th' : 'td');
-            el.textContent = cell;
-            tr.appendChild(el);
+        const rows = text.trim().split('\n').map(line => line.split('\t'));
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        const headerRow = document.createElement('tr');
+        rows[0].forEach((cell, i) => {
+          const th = document.createElement('th');
+          th.textContent = cell;
+          th.addEventListener('click', () => {
+            if (sortColumn === i) {
+              sortDirection *= -1;
+            } else {
+              sortColumn = i;
+              sortDirection = 1;
+            }
+            const sorted = [...rows.slice(1)].sort((a, b) => {
+              const valA = a[i];
+              const valB = b[i];
+              const numA = parseFloat(valA.replace(/,/g, ''));
+              const numB = parseFloat(valB.replace(/,/g, ''));
+              const isNum = !isNaN(numA) && !isNaN(numB);
+              return (isNum ? (numA - numB) : valA.localeCompare(valB)) * sortDirection;
+            });
+
+            // ヘッダーのソートマーク更新
+            table.querySelectorAll('th').forEach(th => {
+              th.classList.remove('sorted-asc', 'sorted-desc');
+            });
+            th.classList.add(sortDirection === 1 ? 'sorted-asc' : 'sorted-desc');
+
+            renderBody(sorted);
           });
-          table.appendChild(tr);
+          headerRow.appendChild(th);
         });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        function renderBody(dataRows) {
+          tbody.innerHTML = '';
+          dataRows.forEach(row => {
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+              const td = document.createElement('td');
+              td.textContent = cell;
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+        }
+
+        renderBody(rows.slice(1));
+        table.appendChild(tbody);
       })
       .catch(err => {
         document.body.innerHTML += '<p style="color:red">ファイル読み込み失敗</p>';

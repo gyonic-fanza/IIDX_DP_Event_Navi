@@ -30,6 +30,7 @@
       <span data-level="10" class="level-link">☆10</span>
       <span data-level="11" class="level-link">☆11</span>
       <span data-level="12" class="level-link">☆12</span>
+<span data-level="stats" class="level-link">Stats</span>
     </div>
     <table id="dpTable">
       <thead>
@@ -38,11 +39,15 @@
           <th data-index="1">Title</th>
           <th data-index="2">Score</th>
           <th data-index="4" colspan="3">Score Rate</th>
-          <th data-index="6">Clear Lamp</th>
+<th data-index="6">Clear Lamp</th>
+<th data-index="7">Miss Count</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+<!-- dpView 内 -->
+<div class="stats hidden" id="dpStats"></div>
+
   </div>
 
   <div id="spView" class="mode-view hidden">
@@ -60,6 +65,7 @@
       <span data-level="10" class="level-link">☆10</span>
       <span data-level="11" class="level-link">☆11</span>
       <span data-level="12" class="level-link">☆12</span>
+<span data-level="stats" class="level-link">Stats</span>
     </div>
     <table id="spTable">
       <thead>
@@ -68,11 +74,14 @@
           <th data-index="1">Title</th>
           <th data-index="2">Score</th>
           <th data-index="4" colspan="3">Score Rate</th>
-          <th data-index="6">Clear Lamp</th>
+<th data-index="6">Clear Lamp</th>
+<th data-index="7">Miss Count</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+<!-- spView 内 -->
+<div class="stats hidden" id="spStats"></div>
   </div>
 
 <script src="config.js"></script>

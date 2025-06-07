@@ -37,21 +37,27 @@ table, th, td {
 }
 
 /* ランクに応じた色分け */
-td.rank.MAX,td.rank.AAA {
+td.rank.MAX, th.rank.MAX,
+td.rank.AAA, th.rank.AAA {
   color: #21efef; /* 青 */
 }
 
-td.rank.AA {
+td.rank.AA, th.rank.AA {
   color: #fba8c1; /* ディープスカイブルー */
 }
 
-td.rank.A {
+td.rank.A, th.rank.A {
   color: #8df49b; /* ライムグリーン */
 }
 
-td.rank.B,td.rank.C,td.rank.D,td.rank.E,td.rank.F {
-  color: inherit; /* 黒 */
+td.rank.B, th.rank.B,
+td.rank.C, th.rank.C,
+td.rank.D, th.rank.D,
+td.rank.E, th.rank.E,
+td.rank.F, th.rank.F {
+  color: inherit; /* デフォルト色 */
 }
+
 
 /* ランプに応じた色分け */
 /* 旧：背景色指定を削除またはコメントアウトして */
@@ -264,4 +270,59 @@ td.title-cell.djpoint-match {
   font-size: 0.8rem;
   color: #ccc;
   margin: 0;
+}
+.hidden {
+  display: none !important;
+}
+
+th.lamp.FULLCOMBO {
+  color: #21efef;
+}
+
+th.lamp.EX-HARD {
+  color: #efef51;
+}
+
+th.lamp.HARD {
+  color: #fba8c1;
+}
+
+th.lamp.CLEAR {
+  color: #f4cd8d;
+}
+
+th.lamp.EASY {
+  color: #8df49b;
+}
+
+th.lamp.ASSIST {
+  color: #ce8ef9;
+}
+
+th.lamp.FAILED {
+  color: inherit;
+}
+.stats-section {
+  overflow-x: auto;
+}
+
+.stats-section table {
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  width: 80%;
+  table-layout: fixed;
+}
+
+.stats-section th,
+.stats-section td {
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  text-align: right;
+  /* white-space: nowrap; */
+}
+
+.stats-section th:first-child,
+.stats-section td:first-child {
+  width: 4em;
+  text-align: left;
 }
