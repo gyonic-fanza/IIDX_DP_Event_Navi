@@ -1,37 +1,57 @@
+
 const config = window.AppConfig || {};
 const dogTag = document.getElementById('dogTag');
 const fixedRankOrder = ['AAA', 'AA', 'A', 'B', 'C', 'D', 'E', 'F'];
 const fixedLampOrder = ['FULLCOMBO', 'EX-HARD', 'HARD', 'CLEAR', 'EASY', 'ASSIST', 'FAILED', 'NP'];
-if (dogTag && config) {
-  dogTag.innerHTML = `
-    <h2> ${config.djName || 'N/A'}</h2>
-    <h3>(INFINITAS ID: ${config.infinitasId || 'N/A'})</h3>
-  `;
-  // ▼ ここに追加：TSVファイルの最終更新日時取得
-  fetch('./tracker.tsv', { method: 'HEAD' })
-    .then(response => {
-      const lastModified = response.headers.get('Last-Modified');
-      if (lastModified) {
-        const date = new Date(lastModified);
-        const formatted = date.toLocaleString('ja-JP', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-        const timestampEl = document.createElement('div');
-        timestampEl.className = 'id-line';
-        timestampEl.textContent = `Last-Modified: ${formatted}`;
-        dogTag.appendChild(timestampEl);
-      }
-    });
-}
+
 fetch('./tracker.tsv')
   .then(response => response.text())
   .then(tsv => {
     const lines = tsv.split('\n').filter(l => l.trim());
     const headers = lines[0].split('\t');
+
+    const calculateTotalDJPoints = (mode) => {
+      let sum = 0;
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split('\t');
+        const idx = headers.indexOf(`${mode} DJ Points`);
+        const val = parseFloat(cols[idx]);
+        if (!isNaN(val)) sum += val;
+      }
+      return Math.round(sum * 1000) / 1000;
+    };
+
+const totalSP = Math.round(calculateTotalDJPoints('SP'));
+const totalDP = Math.round(calculateTotalDJPoints('DP'));
+const totalAll = totalSP + totalDP;
+
+    fetch('./tracker.tsv', { method: 'HEAD' })
+      .then(headRes => {
+        const lastModified = headRes.headers.get('Last-Modified');
+        const formattedDate = lastModified
+          ? new Date(lastModified).toLocaleString('ja-JP', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          : 'N/A';
+
+        if (dogTag && config) {
+          dogTag.innerHTML = `
+            <h2>${config.djName || 'N/A'}</h2>
+            <h3>(INFINITAS ID: ${config.infinitasId || 'N/A'})</h3>
+            <div class="id-line">
+              SP${config.SPClass || '-'} / DP${config.DPClass || '-'} ,
+              DJ Points: ${totalAll.toLocaleString()}
+              (SP: ${totalSP.toLocaleString()} / DP: ${totalDP.toLocaleString()})
+            </div>
+            <div class="id-line">Last-Modified: ${formattedDate}</div>
+          `;
+        }
+      });
+
 /**
  * TSVデータを指定のモードと譜面タイプで表示する。
  * @param {string} mode - 表示モード（例: "dp" や "sp"）
@@ -271,7 +291,7 @@ const isMatchingDJPoints =
 
 const tr = document.createElement('tr');
 let missRaw = (cols[colIndex.miss[chart]] || '').trim();
-let missCount = (missRaw === '-' || missRaw === '') ? '' : parseInt(missRaw);
+const missCount = (missRaw === '-' || missRaw === '') ? '' : parseInt(missRaw);
 tr.innerHTML = `
   <td>${rating}</td>
   <td class="title-cell${isMatchingDJPoints ? ' djpoint-match' : ''}">${title} <span class="chart ${chartLabel}">(${chartLabel})</span></td>
