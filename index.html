@@ -35,6 +35,40 @@
 
   </main>
 
+<section class="slideshow-guide">
+  <h2>📸 IIDX DP Event Slideshow - 使用説明</h2>
+  <p>配信画面等で広告欄としてお使いいただけるように、イベント画像のスライドショーを行うページを用意しました。</p>
+
+  <h3>✅ 基本の使い方</h3>
+  <p>以下のURLでアクセスするとスライドショーが起動します：</p>
+  <code><a href="slideshow.html">https://gyonic-fanza.github.io/IIDX_DP_Event_Navi/slideshow.html</a></code>
+
+  <h3>🎞 アニメーション指定（animation）</h3>
+  <p>クエリで以下のアニメーションが指定できます：</p>
+  <ul>
+    <li>fade（フェード）</li>
+    <li>slide-left / slide-right / slide-up / slide-down（スライド）</li>
+    <li>zoom-in（拡大）</li>
+    <li>flip（回転）</li>
+    <li>blur（ぼかし）</li>
+    <li>slide-diagonal（斜めスライド）</li>
+    <li>rotate-in（回転フェードイン）</li>
+    <li>none（アニメーションなし）</li>
+  </ul>
+
+  <h3>⏱ 切り替え間隔（interval）</h3>
+  <p>画像切り替え間隔をミリ秒で指定可能（例：<code>?interval=7000</code>）</p>
+
+  <h3>✅ 使用例</h3>
+  <code><a href="slideshow.html?animation=zoom-in&interval=3000">https://gyonic-fanza.github.io/IIDX_DP_Event_Navi/slideshow.html<strong>?animation=zoom-in&interval=3000</strong></a></code>
+
+  <h3>📌 備考</h3>
+  <ul>
+    <li>不正なanimation値はfadeとして扱われます</li>
+    <li>アスペクト比は保持され、画像はトリミングされません</li>
+    <li>画像のないイベントは表示されません</li>
+  </ul>
+</section>
 <footer>
   <!-- 注意事項および免責事項（日本語・英語・韓国語） -->
   <section class="disclaimer">

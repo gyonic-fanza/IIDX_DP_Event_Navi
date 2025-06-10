@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IIDX DP Slideshow</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      overflow: hidden;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    .slide-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .active {
+      z-index: 1;
+      opacity: 1;
+    }
+
+    /* --- Animation Classes --- */
+
+    .fade {
+      transition: opacity 1s ease;
+    }
+
+    .slide-horizontal {
+      animation: slideHorizontal 1s ease forwards;
+    }
+    @keyframes slideHorizontal {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .slide-vertical {
+      animation: slideVertical 1s ease forwards;
+    }
+    @keyframes slideVertical {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .zoom-in {
+      animation: zoomIn 1s ease forwards;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); }
+      to { transform: scale(1); }
+    }
+
+    .flip {
+      animation: flip 1s ease forwards;
+    }
+    @keyframes flip {
+      from { transform: rotateY(90deg); opacity: 0; }
+      to { transform: rotateY(0deg); opacity: 1; }
+    }
+
+    .blur {
+      animation: blurIn 1s ease forwards;
+    }
+    @keyframes blurIn {
+      from {
+        filter: blur(10px);
+        opacity: 0;
+      }
+      to {
+        filter: blur(0px);
+        opacity: 1;
+      }
+    }
+
+    .slide-diagonal {
+      animation: slideDiagonal 1s ease forwards;
+    }
+    @keyframes slideDiagonal {
+      from { transform: translate(100%, 100%); }
+      to { transform: translate(0, 0); }
+    }
+
+    .rotate-in {
+      animation: rotateIn 1s ease forwards;
+    }
+    @keyframes rotateIn {
+      from { transform: rotate(-360deg); opacity: 0; }
+      to { transform: rotate(0deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow-container">
+    <img id="imgA" class="slide-img" />
+    <img id="imgB" class="slide-img" />
+  </div>
+
+  <script type="module">
+    import { fetchEventData } from "./js/api.js";
+
+    function getQueryParams() {
+      const p = new URLSearchParams(location.search);
+      return {
+        animation: p.get("animation") || "fade",
+        interval: parseInt(p.get("interval") || "5000", 10)
+      };
+    }
+
+    const rawParams = getQueryParams();
+const allowedAnimations = [
+  "none", "fade", "slide-left", "slide-right", "slide-up", "slide-down",
+  "zoom-in", "flip", "blur", "slide-diagonal", "rotate-in"
+];
+const animation = allowedAnimations.includes(rawParams.animation) ? rawParams.animation : "fade";
+const interval = rawParams.interval;
+    const [imgA, imgB] = [document.getElementById("imgA"), document.getElementById("imgB")];
+    let front = imgA;
+    let back = imgB;
+
+    async function startSlideshow() {
+      const events = await fetchEventData("DP");
+      const banners = events.map(e => e.banner_url?.trim()).filter(url => url);
+      if (banners.length === 0) return;
+
+      let index = 0;
+
+      function applyAnimation(target) {
+        target.className = "slide-img";
+        void target.offsetWidth; // 強制再描画
+
+        if (animation === "none") return;
+        if (animation === "fade") target.classList.add("fade");
+        else if (animation === "slide-left" || animation === "slide-right") target.classList.add("slide-horizontal");
+        else if (animation === "slide-up" || animation === "slide-down") target.classList.add("slide-vertical");
+        else if (["zoom-in", "flip", "blur", "slide-diagonal", "rotate-in"].includes(animation)) target.classList.add(animation);
+      }
+
+      function showNext() {
+        const url = banners[index];
+        const temp = new Image();
+
+        temp.onload = () => {
+          back.src = url;
+          applyAnimation(back);
+          back.classList.add("active");
+
+          front.classList.remove("active");
+          front.className = "slide-img";
+
+          [front, back] = [back, front];
+          index = (index + 1) % banners.length;
+        };
+
+        temp.onerror = () => {
+          index = (index + 1) % banners.length;
+          showNext();
+        };
+
+        temp.src = url;
+      }
+
+      front.src = banners[0];
+applyAnimation(front);
+front.classList.add("active");
+      index = 1;
+
+      setInterval(showNext, interval);
+    }
+
+    startSlideshow();
+  </script>
+</body>
+</html>
